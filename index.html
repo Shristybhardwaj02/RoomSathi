@@ -4,114 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoomSaathi - Find Your Perfect Roommate</title>
+    <script src="https://cdn.tailwindcss.com"></script>,
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <!-- NAVIGATION BAR -->
-    <nav>
-        <a href="index.html">🏠 RoomSaathi</a>
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="pages/auth/login.html">Login</a>
-        <a href="pages/auth/signup.html">Sign Up</a>
+        <!-- NAVIGATION BAR -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-600">RoomSaathi</a>
+            <div class="flex gap-6 items-center">
+                <a href="#features" class="text-gray-600 hover:text-blue-600">Features</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-blue-600">How It Works</a>
+                <a href="pages/auth/login.html" class="text-gray-600 hover:text-blue-600">Login</a>
+                <a href="pages/auth/signup.html" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">Sign Up</a>
+            </div>
+        </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section id="hero">
-        <h1>Find Your Perfect Roommate in One Swipe!</h1>
-        <p>Smart matching based on lifestyle compatibility. No more random roommates, no more conflicts.</p>
-        <a href="pages/auth/signup.html"><button>Get Started Free</button></a>
-        <a href="#how-it-works"><button>See How It Works</button></a>
-        
-        <!-- STATS -->
-        <div id="stats">
-            <div>
-                <h3>10,000+</h3>
-                <p>Happy Users</p>
+        <!-- HERO SECTION -->
+    <section id="hero" class="bg-gradient-to-r from-blue-200 to-purple-500 text-white pt-32 pb-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Find Your Perfect Roommate in One Swipe!</h1>
+            <p class="text-xl md:text-2xl mb-8 text-blue-100">Smart matching based on lifestyle compatibility. No more random roommates, no more conflicts.</p>
+            
+            <div class="flex gap-4 justify-center mb-12">
+                <a href="pages/auth/signup.html">
+                    <button class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 shadow-lg">Get Started Free</button>
+                </a>
+                <a href="#how-it-works">
+                    <button class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600">See How It Works</button>
+                </a>
             </div>
-            <div>
-                <h3>5,000+</h3>
-                <p>Successful Matches</p>
+            
+            <!-- STATS -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                <div class="bg-white/10 rounded-lg p-4">
+                    <h3 class="text-3xl font-bold">10,000+</h3>
+                    <p class="text-blue-100">Happy Users</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-4">
+                    <h3 class="text-3xl font-bold">5,000+</h3>
+                    <p class="text-blue-100">Successful Matches</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-4">
+                    <h3 class="text-3xl font-bold">20+</h3>
+                    <p class="text-blue-100">Indian Cities</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-4">
+                    <h3 class="text-3xl font-bold">87%</h3>
+                    <p class="text-blue-100">Avg Match Score</p>
+                </div>
             </div>
-            <div>
-                <h3>20+</h3>
-                <p>Indian Cities</p>
-            </div>
-            <div>
-                <h3>87%</h3>
-                <p>Avg Match Score</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURES SECTION -->
-    <section id="features">
-        <h2>Why Choose RoomSaathi?</h2>
-        
-        <div>
-            <span>🎯</span>
-            <h3>Smart Matching</h3>
-            <p>Our algorithm matches you based on 8 lifestyle factors.</p>
-        </div>
-        
-        <div>
-            <span>💯</span>
-            <h3>Compatibility Score</h3>
-            <p>See your match percentage BEFORE connecting.</p>
-        </div>
-        
-        <div>
-            <span>👆</span>
-            <h3>Swipe to Match</h3>
-            <p>Tinder-style cards make browsing fun and fast.</p>
-        </div>
-        
-        <div>
-            <span>🔒</span>
-            <h3>Verified & Safe</h3>
-            <p>OTP verification and hidden contact details keep you safe.</p>
-        </div>
-        
-        <div>
-            <span>💬</span>
-            <h3>In-App Chat</h3>
-            <p>Message your matches directly without sharing personal numbers.</p>
-        </div>
-        
-        <div>
-            <span>🆓</span>
-            <h3>100% Free</h3>
-            <p>No hidden charges, no premium plans. Completely free forever.</p>
-        </div>
-    </section>
-
-    <!-- HOW IT WORKS SECTION -->
-    <section id="how-it-works">
-        <h2>How It Works</h2>
-        
-        <div>
-            <span>1</span>
-            <h3>Create Profile</h3>
-            <p>Sign up and tell us about your lifestyle preferences.</p>
-        </div>
-        
-        <div>
-            <span>2</span>
-            <h3>Browse Listings</h3>
-            <p>Swipe through room listings with compatibility scores.</p>
-        </div>
-        
-        <div>
-            <span>3</span>
-            <h3>Like & Match</h3>
-            <p>Like listings you want. When they like back - it's a match!</p>
-        </div>
-        
-        <div>
-            <span>4</span>
-            <h3>Connect & Move In</h3>
-            <p>Chat with matches and move in with your perfect roommate!</p>
         </div>
     </section>
 

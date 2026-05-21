@@ -71,9 +71,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Navigation -->
     <nav class="bg-white shadow-md fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="<?php echo SITE_URL; ?>" class="flex items-center">
+        <div class="max-w-7xl mx-auto px-4 py-1 flex justify-between items-center">
+            <a href="<?php echo SITE_URL; ?>" class="flex items-center gap-2">
                 <img src="<?php echo SITE_URL; ?>/assets/images/Logo.svg" alt="RoomSaathi" class="h-10">
+                <span class="text-lg font-semibold text-primary hidden sm:inline">RoomSathi</span>
             </a>
             <div class="text-gray-600">
                 Welcome, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!
@@ -82,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 
     <!-- Progress Bar -->
-    <div class="pt-20 px-4">
+    <div class="pt-16 px-4">
         <div class="max-w-2xl mx-auto">
             <div class="flex items-center justify-center mb-8">
                 <div class="flex items-center">

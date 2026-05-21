@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomSathi - ER Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #050f91 0%, #3b5bdb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px -10px rgba(5, 15, 145, 0.15);
+        }
+        .header h1 {
+            color: #050f91;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .diagram-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px -10px rgba(5, 15, 145, 0.15);
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        .legend {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px -10px rgba(5, 15, 145, 0.15);
+        }
+        .legend h2 {
+            color: #050f91;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .legend-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #050f91;
+        }
+        .legend-item h3 {
+            color: #050f91;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .legend-item p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+        .attribute {
+            color: #050f91;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .attribute-list {
+            list-style: none;
+            margin-left: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .attribute-list li {
+            margin: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .attribute-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3b5bdb;
+        }
+        .pk {
+            font-weight: 600;
+            color: #050f91;
+        }
+        .fk {
+            font-style: italic;
+            color: #3b5bdb;
+        }
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .diagram-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏠 RoomSathi - Entity Relationship Diagram</h1>
+            <p>Database schema showing entities, attributes, and relationships</p>
+        </div>
+
+        <!-- ER Diagram -->
+        <div class="diagram-container">
+            <div class="mermaid">
+                erDiagram
+                    USERS ||--o{ MATCHES : creates
+                    USERS ||--o{ ROOMS : owns
+                    MATCHES }o--|| USERS : "matched_with"
+
+                    USERS {
+                        int id PK
+                        string name
+                        string email UK
+                        string phone UK
+                        string password
+                        int profile_complete
+                        datetime created_at
+                        datetime updated_at
+                    }
+
+                    MATCHES {
+                        int id PK
+                        int user_id FK
+                        int matched_user_id FK
+                        string status
+                        datetime created_at
+                    }
+
+                    ROOMS {
+                        int id PK
+                        string location
+                        decimal rent
+                        text description
+                        datetime created_at
+                    }
+            </div>
+        </div>
+
+        <!-- Legend & Documentation -->
+        <div class="legend">
+            <h2>📋 Entity Documentation</h2>
+
+            <!-- USERS Entity -->
+            <div class="legend-item">
+                <h3>👤 USERS Entity</h3>
+                <p>Stores user account information and registration details</p>
+                <div class="attribute">Primary Attributes:</div>
+                <ul class="attribute-list">
+                    <li><span class="pk">id</span> - Unique user identifier (Primary Key)</li>
+                    <li>name - User's full name</li>
+                    <li><span class="pk">email</span> - Unique email address (Unique Key)</li>
+                    <li><span class="pk">phone</span> - Unique phone number (Unique Key)</li>
+                    <li>password - Hashed password</li>
+                    <li>profile_complete - Boolean flag (0 or 1)</li>
+                    <li>created_at - Registration timestamp</li>
+                    <li>updated_at - Last update timestamp</li>
+                </ul>
+            </div>
+
+            <!-- MATCHES Entity -->
+            <div class="legend-item">
+                <h3>🤝 MATCHES Entity</h3>
+                <p>Records roommate matches between users</p>
+                <div class="attribute">Primary Attributes:</div>
+                <ul class="attribute-list">
+                    <li><span class="pk">id</span> - Unique match identifier (Primary Key)</li>
+                    <li><span class="fk">user_id</span> - First user reference (Foreign Key → USERS)</li>
+                    <li><span class="fk">matched_user_id</span> - Second user reference (Foreign Key → USERS)</li>
+                    <li>status - Match status (e.g., 'pending', 'accepted', 'rejected')</li>
+                    <li>created_at - Match creation timestamp</li>
+                </ul>
+            </div>
+
+            <!-- ROOMS Entity -->
+            <div class="legend-item">
+                <h3>🏘️ ROOMS Entity</h3>
+                <p>Stores room/property listings information</p>
+                <div class="attribute">Primary Attributes:</div>
+                <ul class="attribute-list">
+                    <li><span class="pk">id</span> - Unique room identifier (Primary Key)</li>
+                    <li>location - Room location/address</li>
+                    <li>rent - Monthly rent amount</li>
+                    <li>description - Room details and description</li>
+                    <li>created_at - Room listing creation timestamp</li>
+                </ul>
+            </div>
+
+            <!-- Relationships -->
+            <div class="legend-item">
+                <h3>🔗 Relationships</h3>
+                <div class="attribute">Entity Relationships:</div>
+                <ul class="attribute-list">
+                    <li><strong>USERS → MATCHES (1:Many)</strong> - One user can create multiple matches</li>
+                    <li><strong>USERS → ROOMS (1:Many)</strong> - One user can own multiple rooms</li>
+                    <li><strong>MATCHES ↔ USERS (Many:Many)</strong> - Matches link two different users together</li>
+                </ul>
+            </div>
+
+            <!-- Legend Notes -->
+            <div class="legend-item">
+                <h3>📌 Legend Notes</h3>
+                <ul class="attribute-list">
+                    <li><span class="pk">PK</span> - Primary Key (Unique identifier for each row)</li>
+                    <li><span class="pk">UK</span> - Unique Key (Unique constraint on column)</li>
+                    <li><span class="fk">FK</span> - Foreign Key (Reference to another table)</li>
+                    <li><strong>||--o{</strong> - One-to-Many relationship (One entity relates to many of another)</li>
+                    <li><strong>}o--||</strong> - Many-to-One relationship (Many entities relate to one)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default',
+            securityLevel: 'loose',
+            er: {
+                fontSize: 14,
+                fontFamily: 'Inter, sans-serif'
+            }
+        });
+        mermaid.contentLoaded();
+    </script>
+</body>
+</html>

@@ -72,9 +72,10 @@ $cities = ['Bangalore', 'Mumbai', 'Delhi NCR', 'Pune', 'Hyderabad', 'Chennai', '
 
     <!-- Navigation -->
     <nav class="bg-white shadow-md fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="<?php echo SITE_URL; ?>" class="flex items-center">
+        <div class="max-w-7xl mx-auto px-4 py-1 flex justify-between items-center">
+            <a href="<?php echo SITE_URL; ?>" class="flex items-center gap-2">
                 <img src="<?php echo SITE_URL; ?>/assets/images/Logo.svg" alt="RoomSaathi" class="h-10">
+                <span class="text-lg font-semibold text-primary hidden sm:inline">RoomSathi</span>
             </a>
             <div class="text-gray-600">
                 Welcome, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!
@@ -83,7 +84,7 @@ $cities = ['Bangalore', 'Mumbai', 'Delhi NCR', 'Pune', 'Hyderabad', 'Chennai', '
     </nav>
 
     <!-- Progress Bar -->
-    <div class="pt-20 px-4">
+    <div class="pt-16 px-4">
         <div class="max-w-2xl mx-auto">
             <div class="flex items-center justify-center mb-8">
                 <div class="flex items-center">
@@ -188,7 +189,9 @@ $cities = ['Bangalore', 'Mumbai', 'Delhi NCR', 'Pune', 'Hyderabad', 'Chennai', '
                             </label>
                             <label class="border-2 rounded-lg p-4 text-center cursor-pointer hover:border-primary <?php echo $user['user_type'] === 'offering' ? 'border-primary bg-primary-light' : 'border-gray-300'; ?>">
                                 <input type="radio" name="user_type" value="offering" class="hidden" <?php echo $user['user_type'] === 'offering' ? 'checked' : ''; ?>>
-                                <span class="text-2xl block mb-2">🏠</span>
+                                <svg class="w-7 h-7 text-primary mx-auto block mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                </svg>
                                 <span class="font-medium">Offer a Room</span>
                             </label>
                             <label class="border-2 rounded-lg p-4 text-center cursor-pointer hover:border-primary <?php echo $user['user_type'] === 'both' ? 'border-primary bg-primary-light' : 'border-gray-300'; ?>">

@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomSathi - Viva Preparation Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #050f91 0%, #3b5bdb 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .toc {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .toc h2 {
+            color: #050f91;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #050f91;
+            padding-bottom: 10px;
+        }
+        
+        .toc ul {
+            list-style: none;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #050f91;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .module {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .module-header {
+            background: linear-gradient(135deg, #050f91 0%, #3b5bdb 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .module-content {
+            padding: 30px;
+        }
+        
+        h3 {
+            color: #050f91;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        h4 {
+            color: #3b5bdb;
+            margin-top: 18px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #050f91;
+        }
+        
+        pre code {
+            color: #333;
+            padding: 0;
+            background: none;
+        }
+        
+        .file-structure {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #3b5bdb;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: #050f91;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #050f91;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 40px;
+            border-top: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 RoomSathi - Viva Preparation Guide</h1>
+            <p>Complete Project Documentation - All Modules Explained</p>
+        </header>
+        
+        <div class="toc">
+            <h2>📚 Table of Contents</h2>
+            <ul>
+                <li><a href="#overview">1. Project Overview</a></li>
+                <li><a href="#tech-stack">2. Technology Stack</a></li>
+                <li><a href="#database">3. Database Design & Schema</a></li>
+                <li><a href="#authentication">4. Authentication Module</a></li>
+                <li><a href="#listings">5. Listings Management Module</a></li>
+                <li><a href="#matching">6. Matching & Recommendations System</a></li>
+                <li><a href="#messaging">7. Chat & Messaging System</a></li>
+                <li><a href="#admin">8. Admin Panel</a></li>
+                <li><a href="#ui-ux">9. UI/UX Features</a></li>
+                <li><a href="#file-structure">10. Project File Structure</a></li>
+                <li><a href="#key-features">11. Key Features Explained</a></li>
+            </ul>
+        </div>
+        
+        <!-- MODULE 1: OVERVIEW -->
+        <div class="module">
+            <div class="module-header">1. PROJECT OVERVIEW 📋</div>
+            <div class="module-content">
+                <h3>What is RoomSathi?</h3>
+                <p><strong>RoomSathi</strong> is a comprehensive room-finding and roommate-matching web application designed to help users find suitable accommodation and compatible roommates in India.</p>
+                
+                <h4>Key Purpose:</h4>
+                <ul>
+                    <li><strong>Room Listings:</strong> Users can post room listings with detailed information, photos, and requirements</li>
+                    <li><strong>Smart Matching:</strong> Algorithm matches users based on preferences, lifestyle, and compatibility</li>
+                    <li><strong>Direct Communication:</strong> Built-in messaging system for direct user-to-user communication</li>
+                    <li><strong>User Profiles:</strong> Complete profile system with verification and preferences</li>
+                    <li><strong>Admin Management:</strong> Admin dashboard to manage users, listings, and handle disputes</li>
+                </ul>
+                
+                <div class="info">
+                    <strong>💡 Key Insight:</strong> The application uses a multi-step matching process that considers user preferences, listing requirements, and past interactions to make intelligent recommendations.
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODULE 2: TECHNOLOGY STACK -->
+        <div class="module">
+            <div class="module-header">2. TECHNOLOGY STACK 🛠️</div>
+            <div class="module-content">
+                <h3>Frontend Technologies</h3>
+                <ul>
+                    <li><strong>HTML5:</strong> Semantic markup and structure</li>
+                    <li><strong>CSS3 & Tailwind CSS:</strong> Responsive design with utility-first CSS framework</li>
+                    <li><strong>JavaScript:</strong> Client-side interactivity and form validation</li>
+                    <li><strong>jQuery (Optional):</strong> DOM manipulation and AJAX calls</li>
+                </ul>
+                
+                <h3>Backend Technologies</h3>
+                <ul>
+                    <li><strong>PHP 7.4+:</strong> Server-side scripting and business logic</li>
+                    <li><strong>MySQLi:</strong> Database interactions using prepared statements for security</li>
+                    <li><strong>Sessions:</strong> User authentication and session management</li>
+                </ul>
+                
+                <h3>Database</h3>
+                <ul>
+                    <li><strong>MySQL:</strong> Relational database for data persistence</li>
+                    <li><strong>Database Name:</strong> roomsaathi</li>
+                    <li><strong>Connection:</strong> MySQLi procedural approach with prepared statements</li>
+                </ul>
+                
+                <h3>Development Environment</h3>
+                <ul>
+                    <li><strong>XAMPP:</strong> Local development server with Apache, PHP, MySQL</li>
+                    <li><strong>Version Control:</strong> Git for code management</li>
+                    <li><strong>File Upload:</strong> /uploads directory for user photos and listing images</li>
+                </ul>
+                
+                <div class="highlight">
+                    <strong>Security Features:</strong>
+                    <ul>
+                        <li>Prepared statements to prevent SQL Injection</li>
+                        <li>Password hashing using PASSWORD_DEFAULT algorithm</li>
+                        <li>Session-based authentication</li>
+                        <li>Input sanitization and validation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODULE 3: DATABASE DESIGN -->
+        <div class="module">
+            <div class="module-header">3. DATABASE DESIGN & SCHEMA 🗄️</div>
+            <div class="module-content">
+                <h3>Database Tables Overview</h3>
+                
+                <h4>1. USERS Table</h4>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Column</th>
+                            <th>Type</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>INT (PK)</td>
+                            <td>Unique user identifier</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>VARCHAR(100)</td>
+                            <td>User's full name</td>
+                        </tr>
+                        <tr>
+                            <td>email</td>
+                            <td>VARCHAR(100) UNIQUE</td>
+                            <td>User's email for login</td>
+                        </tr>
+                        <tr>
+                            <td>phone</td>
+                            <td>VARCHAR(20)</td>
+                            <td>Contact number</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>VARCHAR(255)</td>
+                            <td>Hashed password</td>
+                        </tr>
+                        <tr>
+                            <td>profile_photo</td>
+                            <td>VARCHAR(255)</td>
+                            <td>Path to profile image</td>
+                        </tr>
+                        <tr>
+                            <td>is_verified</td>
+                            <td>BOOLEAN</td>
+                            <td>Email verification status</td>
+                        </tr>
+                        <tr>
+                            <td>profile_complete</td>
+                            <td>BOOLEAN</td>
+                            <td>Profile setup completion status</td>
+                        </tr>
+                        <tr>
+                            <td>created_at</td>
+                            <td>TIMESTAMP</td>
+                            <td>Account creation time</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h4>2. LISTINGS Table</h4>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Column</th>
+                            <th>Type</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>INT (PK)</td>
+                            <td>Unique listing identifier</td>
+                        </tr>
+                        <tr>
+                            <td>user_id</td>
+                            <td>INT (FK)</td>
+                            <td>References users table</td>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>VARCHAR(255)</td>
+                            <td>Listing title</td>
+                        </tr>
+                        <tr>
+                            <td>description</td>
+                            <td>LONGTEXT</td>
+                            <td>Detailed room description</td>
+                        </tr>
+                        <tr>
+                            <td>rent</td>
+                            <td>DECIMAL(10,2)</td>
+                            <td>Monthly rent amount</td>
+                        </tr>
+                        <tr>
+                            <td>locality</td>
+                            <td>VARCHAR(100)</td>
+                            <td>Specific area/locality</td>
+                        </tr>
+                        <tr>
+                            <td>city</td>
+                            <td>VARCHAR(100)</td>
+                            <td>City name</td>
+                        </tr>
+                        <tr>
+                            <td>status</td>
+                            <td>ENUM('active','inactive','sold')</td>
+                            <td>Listing availability</td>
+                        </tr>
+                        <tr>
+                            <td>photos</td>
+                            <td>JSON/TEXT</td>
+                            <td>Array of photo filenames</td>
+                        </tr>
+                        <tr>
+                            <td>created_at</td>
+                            <td>TIMESTAMP</td>
+                            <td>Listing creation date</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h4>3. LIKES Table (Matching System)</h4>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Column</th>
+                            <th>Type</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>INT (PK)</td>
+                            <td>Unique like identifier</td>
+                        </tr>
+                        <tr>
+                            <td>user_id</td>
+                            <td>INT (FK)</td>
+                            <td>User who liked</td>
+                        </tr>
+                        <tr>
+                            <td>listing_id</td>
+                            <td>INT (FK)</td>
+                            <td>Listing that was liked</td>
+                        </tr>
+                        <tr>
+                            <td>listing_owner_id</td>
+                            <td>INT (FK)</td>
+                            <td>Owner of the listing</td>
+                        </tr>
+                        <tr>
+                            <td>status</td>
+                            <td>ENUM('pending','matched','declined')</td>
+                            <td>Interaction status</td>
+                        </tr>
+                        <tr>
+                            <td>created_at</td>
+                            <td>TIMESTAMP</td>
+                            <td>When the like was created</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h4>4. MESSAGES Table (Chat System)</h4>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Column</th>
+                            <th>Type</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>INT (PK)</td>
+                            <td>Message identifier</td>
+                        </tr>
+                        <tr>
+                            <td>sender_id</td>
+                            <td>INT (FK)</td>
+                            <td>Message sender</td>
+                        </tr>
+                        <tr>
+                            <td>receiver_id</td>
+                            <td>INT (FK)</td>
+                            <td>Message receiver</td>
+                        </tr>
+                        <tr>
+                            <td>message_text</td>
+                            <td>LONGTEXT</td>
+                            <td>Message content</td>
+                        </tr>
+                        <tr>
+                            <td>is_read</td>
+                            <td>BOOLEAN</td>
+                            <td>Read status</td>
+                        </tr>
+                        <tr>
+                            <td>created_at</td>
+                            <td>TIMESTAMP</td>
+                            <td>Message timestamp</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="info">
+                    <strong>Database Relationships:</strong>
+                    <ul>
+                        <li><strong>Users → Listings (1:M):</strong> One user can have multiple listings</li>
+                        <li><strong>Users → Likes (1:M):</strong> One user can like many listings</li>
+                        <li><strong>Listings → Likes (1:M):</strong> One listing can be liked by many users</li>
+                        <li><strong>Users → Messages (1:M):</strong> One user can send/receive many messages</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODULE 4: AUTHENTICATION -->
+        <div class="module">
+            <div class="module-header">4. AUTHENTICATION MODULE 🔐</div>
+            <div class="module-content">
+                <h3>Authentication Flow</h3>
+                <p>The authentication system uses session-based authentication with prepared statements for security.</p>
+                
+                <h4>File Location: /pages/auth/</h4>
+                <ul>
+                    <li><strong>signup.php:</strong> User registration page</li>
+                    <li><strong>login.php:</strong> User login page</li>
+                    <li><strong>logout.php:</strong> Session termination</li>
+                    <li><strong>reset-password.php:</strong> Password recovery</li>
+                    <li><strong>forgot-password.php:</strong> Forgot password form</li>
+                </ul>
+                
+                <h4>Registration Process</h4>
+                <pre><code>1. User fills signup form (name, email, phone, password)
+2. Validation:
+   - Check if email already exists
+   - Validate email format
+   - Validate phone format
+   - Password strength check (min 6 chars)
+3. Password hashing:
+   - password_hash($password, PASSWORD_DEFAULT)
+   - Creates bcrypt hash
+4. Database insertion:
+   - INSERT into users table
+   - Auto-verify user (is_verified = 1)
+5. Session creation:
+   - Set $_SESSION['user_id']
+   - Set $_SESSION['user_name']
+   - Redirect to profile setup</code></pre>
+                
+                <h4>Login Process</h4>
+                <pre><code>1. User enters email/phone and password
+2. Query users table with prepared statement:
+   SELECT * FROM users WHERE email = ? OR phone = ?
+3. Verify password:
+   - password_verify($input_password, $stored_hash)
+4. If valid:
+   - Create session variables
+   - Store user details in $_SESSION
+   - Redirect to dashboard
+5. If invalid:
+   - Show error message
+   - Redirect back to login</code></pre>
+                
+                <h4>Key Security Features</h4>
+                <div class="highlight">
+                    <ul>
+                        <li><strong>Prepared Statements:</strong> Prevents SQL injection</li>
+                        <li><strong>Password Hashing:</strong> Uses bcrypt with PASSWORD_DEFAULT</li>
+                        <li><strong>Session Security:</strong> Sessions stored server-side</li>
+                        <li><strong>HTTPS Ready:</strong> Can be configured with SSL</li>
+                        <li><strong>Input Validation:</strong> Email and phone validation</li>
+                    </ul>
+                </div>
+                
+                <h4>Authentication Helper Functions</h4>
+                <pre><code>// Check if user is logged in
+function isLoggedIn() {
+    return isset($_SESSION['user_id']);
+}
+
+// Require login - redirect if not authenticated
+function requireLogin() {
+    if (!isLoggedIn()) {
+        redirect('/pages/auth/login.php');
+    }
+}
+
+// Get user details by ID
+function getUserById($userId) {
+    global $conn;
+    $sql = "SELECT * FROM users WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $userId);
+    mysqli_stmt_execute($stmt);
+    return mysqli_stmt_get_result($stmt)->fetch_assoc();
+}</code></pre>
+            </div>
+        </div>
+        
+        <!-- MODULE 5: LISTINGS MANAGEMENT -->
+        <div class="module">
+            <div class="module-header">5. LISTINGS MANAGEMENT MODULE 🏘️</div>
+            <div class="module-content">
+                <h3>Listings Management System</h3>
+                <p>Complete system for users to create, manage, edit, and delete room listings.</p>
+                
+                <h4>File Location: /pages/listings/</h4>
+                <ul>
+                    <li><strong>post.php:</strong> Create new listing</li>
+                    <li><strong>my-listings.php:</strong> View user's listings</li>
+                    <li><strong>edit.php:</strong> Edit existing listing</li>
+                    <li><strong>details.php:</strong> View listing details</li>
+                    <li><strong>browse.php:</strong> Browse all listings</li>
+                </ul>
+                
+                <h4>Create Listing Flow</h4>
+                <pre><code>1. User fills listing form:
+   - Room title
+   - Description
+   - Rent amount
+   - City/Locality
+   - Room type
+   - Amenities
+   - Photos
+2. Form validation:
+   - All required fields present
+   - Rent is numeric
+   - At least one photo uploaded
+3. Photo upload handling:
+   - Move to /uploads/listings/
+   - Sanitize filename
+   - Store filename in database
+4. Database insertion:
+   INSERT INTO listings (user_id, title, description, rent, locality, 
+                        city, photos, status, created_at)
+5. Redirect to listing details</code></pre>
+                
+                <h4>Listing Status States</h4>
+                <ul>
+                    <li><strong>active:</strong> Listing is available for browsing</li>
+                    <li><strong>inactive:</strong> Listing hidden from search</li>
+                    <li><strong>sold:</strong> Room already rented/matched</li>
+                </ul>
+                
+                <h4>Key Features</h4>
+                <ul>
+                    <li><strong>Multiple Photo Upload:</strong> Upload up to 5 photos</li>
+                    <li><strong>Rich Description:</strong> Detailed room information</li>
+                    <li><strong>Amenities Tagging:</strong> WiFi, AC, Parking, etc.</li>
+                    <li><strong>Edit & Delete:</strong> Only by listing owner</li>
+                    <li><strong>Status Management:</strong> Pause/resume listings</li>
+                </ul>
+                
+                <h4>Database Query Example</h4>
+                <pre><code>// Create listing
+$sql = "INSERT INTO listings 
+        (user_id, title, description, rent, locality, city, photos, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'active')";
+        
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "issddss", $user_id, $title, $desc, 
+                        $rent, $locality, $city, $photos_json);
+mysqli_stmt_execute($stmt);</code></pre>
+            </div>
+        </div>
+        
+        <!-- MODULE 6: MATCHING SYSTEM -->
+        <div class="module">
+            <div class="module-header">6. MATCHING & RECOMMENDATIONS SYSTEM 💕</div>
+            <div class="module-content">
+                <h3>How the Matching Algorithm Works</h3>
+                <p>The matching system intelligently recommends listings and users based on interactions and preferences.</p>
+                
+                <h4>File Location: /pages/matching/matches.php</h4>
+                
+                <h4>Matching Concept</h4>
+                <pre><code>MUTUAL MATCH: When two users like each other's listings
+- User A likes User B's listing
+- User B likes User A's listing (or one of their listings)
+- System marks them as "Matched"
+- They can then communicate via messaging</code></pre>
+                
+                <h4>Database Query for Finding Matches</h4>
+                <pre><code>// Find mutual matches
+SELECT DISTINCT 
+    CASE WHEN l1.user_id = ? THEN l2.user_id ELSE l1.user_id END 
+    as matched_user_id,
+    CASE WHEN l1.user_id = ? THEN l2.listing_id ELSE l1.listing_id END 
+    as their_listing_id
+FROM likes l1
+JOIN likes l2 ON l1.listing_owner_id = l2.user_id 
+                AND l1.user_id = l2.listing_owner_id
+WHERE (l1.user_id = ? OR l1.listing_owner_id = ?)
+ORDER BY matched_at DESC;</code></pre>
+                
+                <h4>Matching Workflow</h4>
+                <ol>
+                    <li><strong>Browse Listings:</strong> User sees available listings</li>
+                    <li><strong>Like/Unlike:</strong> User likes listings they're interested in</li>
+                    <li><strong>Mutual Interest:</strong> When both parties like each other</li>
+                    <li><strong>Match Notification:</strong> System shows as "Matched!"</li>
+                    <li><strong>Enable Messaging:</strong> Users can start chatting</li>
+                </ol>
+                
+                <h4>Likes Table States</h4>
+                <ul>
+                    <li><strong>pending:</strong> User liked, waiting for response</li>
+                    <li><strong>matched:</strong> Mutual like confirmed</li>
+                    <li><strong>declined:</strong> User rejected the listing</li>
+                </ul>
+                
+                <h4>Smart Recommendation Features</h4>
+                <ul>
+                    <li><strong>Similar Budget:</strong> Show listings in similar price range</li>
+                    <li><strong>Same City:</strong> Filter by user's city preference</li>
+                    <li><strong>History Based:</strong> Learn from past interactions</li>
+                    <li><strong>Pending Interests:</strong> Show who liked user's listings</li>
+                </ul>
+                
+                <div class="highlight">
+                    <strong>Match Score Formula:</strong>
+                    <ul>
+                        <li>Same city: +20 points</li>
+                        <li>Similar rent range (±30%): +15 points</li>
+                        <li>Both profiles complete: +10 points</li>
+                        <li>Previous positive interaction: +5 points</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODULE 7: MESSAGING SYSTEM -->
+        <div class="module">
+            <div class="module-header">7. CHAT & MESSAGING SYSTEM 💬</div>
+            <div class="module-content">
+                <h3>Real-time Messaging System</h3>
+                <p>Enables direct communication between matched users.</p>
+                
+                <h4>File Location: /pages/chat/</h4>
+                <ul>
+                    <li><strong>conversation.php:</strong> Chat interface</li>
+                    <li><strong>send-message.php:</strong> Handle message sending</li>
+                    <li><strong>get-messages.php:</strong> Fetch messages via AJAX</li>
+                </ul>
+                
+                <h4>Messaging Flow</h4>
+                <pre><code>1. User clicks "Message" on a matched profile
+2. Conversation page loads with chat history
+3. System displays all messages between users
+4. User types message and clicks send
+5. AJAX sends to send-message.php
+6. Backend saves to messages table:
+   INSERT INTO messages 
+   (sender_id, receiver_id, message_text, is_read, created_at)
+7. Message appears in chat
+8. Other user sees notification
+9. Messages marked as read when viewed</code></pre>
+                
+                <h4>Message Storage</h4>
+                <pre><code>INSERT INTO messages 
+(sender_id, receiver_id, message_text, is_read) 
+VALUES (?, ?, ?, 0);</code></pre>
+                
+                <h4>Key Features</h4>
+                <ul>
+                    <li><strong>Real-time Fetch:</strong> Auto-refresh messages every 3 seconds</li>
+                    <li><strong>Read Status:</strong> Track if message was read</li>
+                    <li><strong>Timestamps:</strong> Show when message was sent</li>
+                    <li><strong>Message History:</strong> Full conversation retained</li>
+                    <li><strong>User Info Display:</strong> Show sender profile photo and name</li>
+                </ul>
+                
+                <h4>AJAX Message Polling</h4>
+                <pre><code>// Load messages every 3 seconds
+setInterval(function() {
+    $.ajax({
+        url: 'get-messages.php',
+        type: 'POST',
+        data: {
+            other_user_id: <?php echo $_GET['user']; ?>
+        },
+        success: function(response) {
+            $('#messages-container').html(response);
+            // Scroll to bottom
+            scrollToBottom();
+        }
+    });
+}, 3000);</code></pre>
+            </div>
+        </div>
+        
+        <!-- MODULE 8: ADMIN PANEL -->
+        <div class="module">
+            <div class="module-header">8. ADMIN PANEL 🛡️</div>
+            <div class="module-content">
+                <h3>Administrator Dashboard</h3>
+                <p>Comprehensive admin panel for managing platform content and users.</p>
+                
+                <h4>File Location: /pages/admin/</h4>
+                <ul>
+                    <li><strong>index.php:</strong> Admin dashboard with statistics</li>
+                    <li><strong>listings.php:</strong> Manage all listings</li>
+                    <li><strong>users.php:</strong> Manage user accounts</li>
+                </ul>
+                
+                <h4>Admin Access Control</h4>
+                <pre><code>// Admin verification
+$user = getUserById($_SESSION['user_id']);
+$isAdmin = ($user['id'] == 1 || $user['email'] == 'admin@roomsaathi.com');
+
+if (!$isAdmin) {
+    header('Location: ' . SITE_URL . '/pages/dashboard.php');
+    exit;
+}</code></pre>
+                
+                <h4>Admin Credentials</h4>
+                <ul>
+                    <li><strong>Email:</strong> admin@roomsaathi.com</li>
+                    <li><strong>Password:</strong> admin@0910</li>
+                </ul>
+                
+                <h4>Dashboard Statistics</h4>
+                <ul>
+                    <li><strong>Total Users:</strong> Count of all registered users</li>
+                    <li><strong>Total Listings:</strong> Count of all listings</li>
+                    <li><strong>Active Listings:</strong> Currently available listings</li>
+                    <li><strong>Total Messages:</strong> All messages exchanged</li>
+                    <li><strong>Total Likes:</strong> All user interactions</li>
+                </ul>
+                
+                <h4>Admin Features</h4>
+                <h5>Listings Management:</h5>
+                <ul>
+                    <li>View all listings with photos</li>
+                    <li>Filter by status (active/inactive/sold)</li>
+                    <li>Search listings by location or price</li>
+                    <li>Pause/activate problematic listings</li>
+                    <li>Delete inappropriate content</li>
+                </ul>
+                
+                <h5>Users Management:</h5>
+                <ul>
+                    <li>View all registered users</li>
+                    <li>Filter by verification status</li>
+                    <li>Search users by name/email</li>
+                    <li>View user profile details</li>
+                    <li>Suspend/block problematic users</li>
+                </ul>
+                
+                <h4>Admin Sidebar Navigation</h4>
+                <pre><code>- Dashboard (Overview)
+- Listings (Manage all rooms)
+- Users (Manage accounts)
+- Reports (User reports/complaints)
+- Settings (Platform settings)
+- Logout</code></pre>
+            </div>
+        </div>
+        
+        <!-- MODULE 9: UI/UX FEATURES -->
+        <div class="module">
+            <div class="module-header">9. UI/UX FEATURES ✨</div>
+            <div class="module-content">
+                <h3>User Interface Design</h3>
+                <p>Modern, responsive design using Tailwind CSS with smooth animations.</p>
+                
+                <h4>Design Framework: Tailwind CSS</h4>
+                <ul>
+                    <li><strong>Utility-first CSS:</strong> Rapid development with predefined classes</li>
+                    <li><strong>Responsive Design:</strong> Mobile-first approach</li>
+                    <li><strong>Custom Colors:</strong> Primary #050f91 (dark blue), Secondary #3b5bdb</li>
+                    <li><strong>Gradient Buttons:</strong> Modern gradient effects</li>
+                </ul>
+                
+                <h4>Key UI Components</h4>
+                <ul>
+                    <li><strong>Navigation Bar:</strong> Sticky top navigation with logo and user menu</li>
+                    <li><strong>Cards:</strong> Listing display cards with hover effects</li>
+                    <li><strong>Forms:</strong> Beautiful form inputs with validation</li>
+                    <li><strong>Buttons:</strong> Primary, secondary, and action buttons</li>
+                    <li><strong>Modals:</strong> Pop-ups for confirmations and details</li>
+                </ul>
+                
+                <h4>Animations & Effects</h4>
+                <ul>
+                    <li><strong>Hover Scale:</strong> Cards scale up on hover</li>
+                    <li><strong>Smooth Transitions:</strong> All interactions have smooth animations</li>
+                    <li><strong>Gradient Backgrounds:</strong> Decorative gradient overlays</li>
+                    <li><strong>Shadow Effects:</strong> Depth and dimension with shadows</li>
+                </ul>
+                
+                <h4>Responsive Breakpoints</h4>
+                <pre><code>- Mobile: Default styles (< 640px)
+- Small: sm: 640px
+- Medium: md: 768px
+- Large: lg: 1024px
+- X-Large: xl: 1280px
+- 2X-Large: 2xl: 1536px
+
+Example: hidden sm:inline
+- Hidden on mobile, visible on sm and up</code></pre>
+                
+                <h4>Color Palette</h4>
+                <ul>
+                    <li><strong>Primary:</strong> #050f91 (Dark Blue)</li>
+                    <li><strong>Secondary:</strong> #3b5bdb (Light Blue)</li>
+                    <li><strong>Success:</strong> #22c55e (Green)</li>
+                    <li><strong>Warning:</strong> #f59e0b (Amber)</li>
+                    <li><strong>Error:</strong> #ef4444 (Red)</li>
+                    <li><strong>Background:</strong> #f9fafb (Light Gray)</li>
+                </ul>
+                
+                <div class="info">
+                    <strong>Branding Elements:</strong>
+                    <ul>
+                        <li>RoomSathi logo next to text in navbar</li>
+                        <li>Font: Segoe UI for clarity</li>
+                        <li>Typography: Bold headers, regular body text</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODULE 10: FILE STRUCTURE -->
+        <div class="module">
+            <div class="module-header">10. PROJECT FILE STRUCTURE 📁</div>
+            <div class="module-content">
+                <h3>Complete Directory Structure</h3>
+                <div class="file-structure">RoomSathi-1/
+├── index.php                    # Landing page
+├── css/
+│   └── styles.css              # Global CSS (Tailwind integration)
+├── js/
+│   └── main.js                 # Client-side scripts
+├── assets/
+│   └── images/
+│       └── Logo.svg            # RoomSathi branding logo
+├── includes/
+│   ├── config.php              # Database config & globals
+│   ├── functions.php           # Helper functions
+│   ├── header.php              # Navigation bar
+│   └── footer.php              # Footer
+├── pages/
+│   ├── auth/
+│   │   ├── signup.php          # User registration
+│   │   ├── login.php           # User login
+│   │   ├── logout.php          # Logout handler
+│   │   ├── reset-password.php  # Password reset
+│   │   └── forgot-password.php # Forgot password
+│   ├── listings/
+│   │   ├── post.php            # Create listing
+│   │   ├── browse.php          # Browse listings
+│   │   ├── details.php         # View listing details
+│   │   ├── edit.php            # Edit listing
+│   │   ├── my-listings.php     # User's listings
+│   ├── matching/
+│   │   └── matches.php         # View matches & recommendations
+│   ├── chat/
+│   │   ├── conversation.php    # Chat interface
+│   │   ├── send-message.php    # Send message handler
+│   │   └── get-messages.php    # Fetch messages (AJAX)
+│   ├── admin/
+│   │   ├── index.php           # Admin dashboard
+│   │   ├── listings.php        # Manage listings
+│   │   └── users.php           # Manage users
+│   ├── profile/
+│   │   ├── setup-step1.php     # Profile setup step 1
+│   │   └── setup-step2.php     # Profile setup step 2
+│   ├── dashboard/
+│   │   └── index.php           # User dashboard
+│   ├── about.php               # About page
+│   ├── faq.php                 # FAQ page
+│   ├── contact.php             # Contact form
+│   ├── privacy.php             # Privacy policy
+│   └── terms.php               # Terms of service
+├── uploads/
+│   ├── listings/               # Listing photos
+│   └── profiles/               # User profile photos
+├── documentation/
+│   ├── er-diagram.html         # Database ER diagram
+│   ├── messaging-system-explanation.html
+│   └── data-validation-guide.html
+├── sql/
+│   └── roomsaathi.sql          # Database schema
+├── README.md                    # Project documentation
+└── create-admin.php            # Admin account creation script</div>
+            </div>
+        </div>
+        
+        <!-- MODULE 11: KEY FEATURES EXPLAINED -->
+        <div class="module">
+            <div class="module-header">11. KEY FEATURES EXPLAINED 🎯</div>
+            <div class="module-content">
+                <h3>Core Features</h3>
+                
+                <h4>1. User Registration & Profile Setup</h4>
+                <ul>
+                    <li>Multi-step signup process</li>
+                    <li>Email verification</li>
+                    <li>Profile photo upload</li>
+                    <li>Preference settings (budget, location, lifestyle)</li>
+                </ul>
+                
+                <h4>2. Room Listing Creation</h4>
+                <ul>
+                    <li>Detailed room information</li>
+                    <li>Multiple photo upload (up to 5)</li>
+                    <li>Amenities selection</li>
+                    <li>Price and location specification</li>
+                </ul>
+                
+                <h4>3. Intelligent Matching</h4>
+                <ul>
+                    <li>Algorithm-based recommendations</li>
+                    <li>Mutual interest tracking</li>
+                    <li>Compatibility scoring</li>
+                    <li>Pending interest notifications</li>
+                </ul>
+                
+                <h4>4. Real-time Messaging</h4>
+                <ul>
+                    <li>Direct chat between matched users</li>
+                    <li>Message history retention</li>
+                    <li>Read/unread status</li>
+                    <li>Notification system</li>
+                </ul>
+                
+                <h4>5. Search & Browse</h4>
+                <ul>
+                    <li>Advanced search filters</li>
+                    <li>Sort by price, date, popularity</li>
+                    <li>Location-based filtering</li>
+                    <li>Amenities-based search</li>
+                </ul>
+                
+                <h4>6. Admin Controls</h4>
+                <ul>
+                    <li>User management and verification</li>
+                    <li>Content moderation</li>
+                    <li>Analytics and reporting</li>
+                    <li>Platform settings management</li>
+                </ul>
+                
+                <h3>Data Validation</h3>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Field</th>
+                            <th>Validation Type</th>
+                            <th>Rule</th>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>Format & Uniqueness</td>
+                            <td>Must be valid email, unique in database</td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>Length & Strength</td>
+                            <td>Minimum 6 characters required</td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td>Format</td>
+                            <td>Must be 10 digits</td>
+                        </tr>
+                        <tr>
+                            <td>Rent</td>
+                            <td>Numeric</td>
+                            <td>Must be positive decimal number</td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>Required</td>
+                            <td>Non-empty, max 100 chars</td>
+                        </tr>
+                        <tr>
+                            <td>Photos</td>
+                            <td>File Type & Size</td>
+                            <td>JPG/PNG, max 5MB per file</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3>Common Questions (For Viva)</h3>
+                <h4>Q: How does the matching algorithm work?</h4>
+                <p><strong>A:</strong> The system uses mutual likes as the matching criterion. When User A likes User B's listing and User B (or their listing) also likes one of User A's listings, they're marked as matched and can communicate.</p>
+                
+                <h4>Q: What security measures are implemented?</h4>
+                <p><strong>A:</strong> We use prepared statements to prevent SQL injection, bcrypt for password hashing, session-based authentication, and input validation/sanitization.</p>
+                
+                <h4>Q: How are user photos handled?</h4>
+                <p><strong>A:</strong> Photos are uploaded to the /uploads/ directory with sanitized filenames. The filenames are stored in the database, and full paths are constructed during display.</p>
+                
+                <h4>Q: What happens when a listing is marked as "sold"?</h4>
+                <p><strong>A:</strong> The listing is hidden from browse/search results but remains in the database for historical records. Users can reactivate it if needed.</p>
+                
+                <h4>Q: How are admin privileges assigned?</h4>
+                <p><strong>A:</strong> Admin status is checked against user ID 1 or specific email (admin@roomsaathi.com). This is verified on every admin page access.</p>
+                
+                <h4>Q: Can users delete their account?</h4>
+                <p><strong>A:</strong> Currently, the system doesn't support account deletion, but admin can deactivate accounts if needed.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>📚 RoomSathi Project Viva Documentation</p>
+            <p>For more details, refer to the project README.md and inline code comments</p>
+            <p>Good luck with your viva presentation! 🚀</p>
+        </div>
+    </div>
+</body>
+</html>

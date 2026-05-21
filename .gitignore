@@ -1,0 +1,22 @@
+# Node/npm
+node_modules/
+
+# PHP vendor
+vendor/
+
+# Environment
+.env
+
+# Uploads and user content
+uploads/
+uploads/*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE
+.vscode/

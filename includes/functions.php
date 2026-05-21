@@ -11,21 +11,20 @@ require_once 'config.php';
 function registerUser($name, $email, $phone, $password) {
     global $conn;
     
-    // Hash password
+    // Hash password for security
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
-    // Generate OTP
-    $otp = generateOTP();
-    $otpExpiry = date('Y-m-d H:i:s', strtotime('+10 minutes'));
+    // Auto-verify new users (no OTP required)
+    $isVerified = 1;
     
-    $sql = "INSERT INTO users (name, email, phone, password, otp_code, otp_expiry) 
-            VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (name, email, phone, password, is_verified) 
+            VALUES (?, ?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ssssss", $name, $email, $phone, $hashedPassword, $otp, $otpExpiry);
+    mysqli_stmt_bind_param($stmt, "ssssi", $name, $email, $phone, $hashedPassword, $isVerified);
     
     if (mysqli_stmt_execute($stmt)) {
-        return ['success' => true, 'user_id' => mysqli_insert_id($conn), 'otp' => $otp];
+        return ['success' => true, 'user_id' => mysqli_insert_id($conn)];
     }
     
     return ['success' => false, 'error' => mysqli_error($conn)];
@@ -37,6 +36,7 @@ function registerUser($name, $email, $phone, $password) {
 function loginUser($email, $password) {
     global $conn;
     
+    // Find user by email or phone
     $sql = "SELECT * FROM users WHERE email = ? OR phone = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "ss", $email, $email);
@@ -44,12 +44,9 @@ function loginUser($email, $password) {
     $result = mysqli_stmt_get_result($stmt);
     
     if ($user = mysqli_fetch_assoc($result)) {
+        // Check if password matches
         if (password_verify($password, $user['password'])) {
-            if ($user['is_verified'] == 0) {
-                return ['success' => false, 'error' => 'Please verify your account first'];
-            }
-            
-            // Set session
+            // Set session variables for logged-in user
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_email'] = $user['email'];
@@ -68,7 +65,8 @@ function loginUser($email, $password) {
 function verifyOTP($userId, $otp) {
     global $conn;
     
-    $sql = "SELECT * FROM users WHERE id = ? AND otp_code = ? AND otp_expiry > NOW()";
+    // Demo mode: Only check if OTP matches (ignore expiry for testing)
+    $sql = "SELECT * FROM users WHERE id = ? AND otp_code = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "is", $userId, $otp);
     mysqli_stmt_execute($stmt);
@@ -229,7 +227,7 @@ function createListing($userId, $data, $photos) {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "issddsssssssis",
+    mysqli_stmt_bind_param($stmt, "issddsssssssiss",
         $userId,
         $data['title'],
         $data['description'],
@@ -401,5 +399,36 @@ function getDashboardStats($userId) {
         'matches' => $matches,
         'interests' => $interests
     ];
+}
+
+/**
+ * Convert timestamp to human-readable "time ago" format
+ */
+function timeAgo($datetime) {
+    $time = strtotime($datetime);
+    $now = time();
+    $diff = $now - $time;
+    
+    if ($diff < 60) {
+        return 'Just now';
+    } elseif ($diff < 3600) {
+        $mins = floor($diff / 60);
+        return $mins . ' min' . ($mins > 1 ? 's' : '') . ' ago';
+    } elseif ($diff < 86400) {
+        $hours = floor($diff / 3600);
+        return $hours . ' hour' . ($hours > 1 ? 's' : '') . ' ago';
+    } elseif ($diff < 604800) {
+        $days = floor($diff / 86400);
+        return $days . ' day' . ($days > 1 ? 's' : '') . ' ago';
+    } elseif ($diff < 2592000) {
+        $weeks = floor($diff / 604800);
+        return $weeks . ' week' . ($weeks > 1 ? 's' : '') . ' ago';
+    } elseif ($diff < 31536000) {
+        $months = floor($diff / 2592000);
+        return $months . ' month' . ($months > 1 ? 's' : '') . ' ago';
+    } else {
+        $years = floor($diff / 31536000);
+        return $years . ' year' . ($years > 1 ? 's' : '') . ' ago';
+    }
 }
 ?>

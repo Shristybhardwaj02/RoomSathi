@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomSathi - Project Gantt Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #050f91;
+        }
+        .header h1 {
+            color: #050f91;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #64748b;
+            font-size: 14px;
+        }
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .info-box h3 {
+            color: #050f91;
+            font-size: 20px;
+        }
+        .info-box p {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .gantt-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .mermaid {
+            text-align: center;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #475569;
+        }
+        .legend-color {
+            width: 20px;
+            height: 12px;
+            border-radius: 3px;
+        }
+        .done { background: #10b981; }
+        .active { background: #3b82f6; }
+        .pending { background: #94a3b8; }
+        .critical { background: #ef4444; }
+        
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        .summary-table th, .summary-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .summary-table th {
+            background: #050f91;
+            color: white;
+            font-weight: 600;
+        }
+        .summary-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .status-done {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-active {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .status-pending {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 RoomSathi - Project Gantt Chart</h1>
+            <p>Roommate Matching Web Application | December 2025 - February 2026 (12 Weeks)</p>
+        </div>
+        
+        <div class="project-info">
+            <div class="info-box">
+                <h3>12</h3>
+                <p>Total Weeks</p>
+            </div>
+            <div class="info-box">
+                <h3>31</h3>
+                <p>Total Pages</p>
+            </div>
+            <div class="info-box">
+                <h3>7</h3>
+                <p>Modules</p>
+            </div>
+            <div class="info-box">
+                <h3>5</h3>
+                <p>Database Tables</p>
+            </div>
+        </div>
+        
+        <div class="gantt-container">
+            <div class="mermaid">
+gantt
+    title Project Development Timeline
+    dateFormat  YYYY-MM-DD
+    
+    section Planning
+    Project Requirements & Analysis    :done, p1, 2025-12-01, 7d
+    System Design & Architecture       :done, p2, 2025-12-08, 7d
+    
+    section Database & Setup
+    Database Schema Design             :done, db1, 2025-12-15, 5d
+    Folder Structure & Config          :done, db2, 2025-12-20, 5d
+    Git Repository Setup               :done, db3, 2025-12-25, 3d
+    
+    section Authentication
+    Signup Page with Validations       :done, a1, 2025-12-28, 4d
+    Login & Session Management         :done, a2, 2026-01-01, 3d
+    OTP Verification System            :done, a3, 2026-01-04, 4d
+    Logout Functionality               :done, a4, 2026-01-08, 2d
+    
+    section Profile Module
+    Profile Setup Step 1               :done, pr1, 2026-01-10, 3d
+    Profile Setup Step 2               :done, pr2, 2026-01-13, 3d
+    My Profile Page                    :done, pr3, 2026-01-16, 3d
+    
+    section Dashboard
+    Dashboard UI Design                :done, d1, 2026-01-19, 4d
+    Dashboard Stats & Analytics        :done, d2, 2026-01-23, 3d
+    
+    section Listings Module
+    Post Listing Page                  :done, l1, 2026-01-26, 4d
+    Browse Listings (Swipe UI)         :done, l2, 2026-01-30, 4d
+    My Listings Page                   :done, l3, 2026-02-03, 3d
+    Listing Details Page               :done, l4, 2026-02-06, 4d
+    
+    section Matching System
+    Like/Dislike Functionality         :done, m1, 2026-02-10, 3d
+    Match Algorithm                    :done, m2, 2026-02-13, 4d
+    Matches Page                       :done, m3, 2026-02-17, 3d
+    
+    section Testing & Docs
+    Bug Fixes & Testing                :active, t1, 2026-02-20, 4d
+    Documentation & README             :t2, 2026-02-24, 3d
+    Final Review & Submission          :crit, t3, 2026-02-27, 2d
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color done"></div>
+                <span>Completed</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color active"></div>
+                <span>In Progress</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color pending"></div>
+                <span>Pending</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color critical"></div>
+                <span>Critical</span>
+            </div>
+        </div>
+        
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Dates</th>
+                    <th>Phase</th>
+                    <th>Key Tasks</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Week 1-2</td>
+                    <td>Dec 1-14</td>
+                    <td>Planning</td>
+                    <td>Requirements Analysis, System Design</td>
+                    <td><span class="status-badge status-done">Done</span></td>
+                </tr>
+                <tr>
+                    <td>Week 3-4</td>
+                    <td>Dec 15-28</td>
+                    <td>Database & Setup</td>
+                    <td>Schema Design, Folder Structure, Git Setup</td>
+                    <td><span class="status-badge status-done">Done</span></td>
+                </tr>
+                <tr>
+                    <td>Week 5-6</td>
+                    <td>Dec 28 - Jan 10</td>
+                    <td>Authentication</td>
+                    <td>Signup, Login, OTP Verification, Logout</td>
+                    <td><span class="status-badge status-done">Done</span></td>
+                </tr>
+                <tr>
+                    <td>Week 7-8</td>
+                    <td>Jan 10-26</td>
+                    <td>Profile & Dashboard</td>
+                    <td>Profile Setup (2 Steps), Dashboard UI & Stats</td>
+                    <td><span class="status-badge status-done">Done</span></td>
+                </tr>
+                <tr>
+                    <td>Week 9-10</td>
+                    <td>Jan 26 - Feb 10</td>
+                    <td>Listings Module</td>
+                    <td>Post, Browse, My Listings, Listing Details</td>
+                    <td><span class="status-badge status-done">Done</span></td>
+                </tr>
+                <tr>
+                    <td>Week 11-12</td>
+                    <td>Feb 10-28</td>
+                    <td>Matching & Testing</td>
+                    <td>Like/Match System, Testing, Documentation</td>
+                    <td><span class="status-badge status-active">In Progress</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="footer">
+            <p>RoomSathi | 6th Semester Project | Generated on February 2026</p>
+            <p class="no-print" style="margin-top: 10px; color: #050f91; font-weight: 600;">
+                💡 Press Ctrl+P to save as PDF
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 25,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75,
+                gridLineStartPadding: 35,
+                fontSize: 12,
+                sectionFontSize: 14,
+                numberSectionStyles: 4
+            }
+        });
+    </script>
+</body>
+</html>

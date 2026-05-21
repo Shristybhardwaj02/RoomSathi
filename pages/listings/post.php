@@ -63,47 +63,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $cities = ['Bangalore', 'Mumbai', 'Delhi NCR', 'Pune', 'Hyderabad', 'Chennai', 'Kolkata', 'Ahmedabad', 'Noida', 'Gurgaon'];
 $amenitiesList = ['WiFi', 'AC', 'Parking', 'Washing Machine', 'TV', 'Kitchen', 'Gym', 'Power Backup', 'Security', 'Water Supply'];
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Listing - RoomSaathi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#050f91',
-                        'primary-dark': '#03085c',
-                        'primary-light': '#E8EAFF',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-50 min-h-screen">
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="<?php echo SITE_URL; ?>" class="flex items-center">
-                <img src="<?php echo SITE_URL; ?>/assets/images/Logo.svg" alt="RoomSaathi" class="h-10">
-            </a>
-            <div class="flex gap-6 items-center">
-                <a href="../dashboard/index.php" class="text-gray-600 hover:text-primary">Dashboard</a>
-                <a href="browse.php" class="text-gray-600 hover:text-primary">Browse</a>
-                <a href="../matching/matches.php" class="text-gray-600 hover:text-primary">Matches</a>
-                <a href="../profile/my-profile.php" class="text-gray-600 hover:text-primary">Profile</a>
-            </div>
-        </div>
-    </nav>
+$pageTitle = 'Post Listing';
+require_once '../../includes/header.php';
+?>
 
     <!-- Main Content -->
-    <main class="pt-24 pb-12 px-4">
+    <div class="min-h-screen bg-gray-50 py-8 px-4">
         <div class="max-w-3xl mx-auto">
             <div class="bg-white rounded-2xl shadow-xl p-8">
                 <div class="text-center mb-8">
@@ -254,7 +220,7 @@ $amenitiesList = ['WiFi', 'AC', 'Parking', 'Washing Machine', 'TV', 'Kitchen', '
                 </form>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
         // Photo preview
@@ -275,5 +241,4 @@ $amenitiesList = ['WiFi', 'AC', 'Parking', 'Washing Machine', 'TV', 'Kitchen', '
         });
     </script>
 
-</body>
-</html>
+<?php require_once '../../includes/footer.php'; ?>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 50" width="280" height="50">
+  <!-- House Icon -->
+  <g transform="translate(5, 5)">
+    <path fill="#050f91" d="M20 5L5 18v17h10v-12h10v12h10V18L20 5z"/>
+    <path fill="#050f91" d="M20 0l-2.5 2.5L20 5l2.5-2.5L20 0z"/>
+    <circle fill="#E8EAFF" cx="20" cy="25" r="5"/>
+    <path fill="#050f91" d="M18 23h4v6h-4z"/>
+  </g>
+  
+  <!-- RoomSaathi Text -->
+  <text x="55" y="33" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#050f91">
+    Room<tspan fill="#3B82F6">Saathi</tspan>
+  </text>
+</svg>

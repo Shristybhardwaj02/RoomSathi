@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomSathi - Matching & Messaging Code Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #050f91 0%, #3b5bdb 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #050f91 0%, #3b5bdb 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .section-content {
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #050f91;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #050f91;
+        }
+        
+        h3 {
+            color: #3b5bdb;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #050f91;
+            line-height: 1.5;
+        }
+        
+        code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.95em;
+        }
+        
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .number { color: #b5cea8; }
+        .variable { color: #9cdcfe; }
+        
+        .inline-code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            color: #d63384;
+        }
+        
+        .explanation {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #050f91;
+        }
+        
+        .note {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .highlight-line {
+            background: #f5e5cd;
+            border-left: 3px solid #ff9800;
+            padding-left: 10px;
+            margin: 10px 0;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .step-number {
+            background: #050f91;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th {
+            background: #050f91;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 40px;
+            border-top: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 RoomSathi - Matching & Messaging System</h1>
+            <p>Complete Code Explanation & Implementation Details</p>
+        </header>
+        
+        <!-- MATCHING ALGORITHM SECTION -->
+        <div class="section">
+            <div class="section-header">🎯 MATCHING ALGORITHM - COMPLETE CODE</div>
+            <div class="section-content">
+                <h2>File Location: /pages/matching/matches.php</h2>
+                
+                <h3>Core Matching Logic - SQL Query</h3>
+                <p>This is the heart of the matching system. It finds mutual matches using a self-join on the likes table:</p>
+                
+                <pre><code><span class="keyword">$sql</span> = <span class="string">"SELECT DISTINCT 
+    CASE WHEN l1.user_id = ? THEN l2.user_id ELSE l1.user_id END 
+        as matched_user_id,
+    CASE WHEN l1.user_id = ? THEN l2.listing_id ELSE l1.listing_id END 
+        as their_listing_id,
+    GREATEST(l1.created_at, l2.created_at) as matched_at
+FROM likes l1
+JOIN likes l2 ON l1.listing_owner_id = l2.user_id 
+    AND l1.user_id = l2.listing_owner_id
+WHERE (l1.user_id = ? OR l1.listing_owner_id = ?)
+ORDER BY matched_at DESC"</span>;
+
+<span class="comment">// Bind parameters</span>
+<span class="keyword">$stmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$sql</span>);
+mysqli_stmt_bind_param(<span class="keyword">$stmt</span>, <span class="string">"iiii"</span>, 
+    <span class="variable">$userId</span>, <span class="variable">$userId</span>, <span class="variable">$userId</span>, <span class="variable">$userId</span>);
+mysqli_stmt_execute(<span class="keyword">$stmt</span>);
+<span class="keyword">$matchesResult</span> = mysqli_stmt_get_result(<span class="keyword">$stmt</span>);</code></pre>
+                
+                <div class="explanation">
+                    <strong>How the Query Works:</strong>
+                    <ol>
+                        <li><strong>SELECT DISTINCT:</strong> Returns unique matches (prevents duplicates)</li>
+                        <li><strong>CASE WHEN Logic:</strong> Determines which user is the "other" person
+                            <ul>
+                                <li>If l1.user_id matches our user → l2.user_id is the matched user</li>
+                                <li>Otherwise → l1.user_id is the matched user</li>
+                            </ul>
+                        </li>
+                        <li><strong>JOIN Condition:</strong> <code class="inline-code">l1.listing_owner_id = l2.user_id AND l1.user_id = l2.listing_owner_id</code>
+                            <ul>
+                                <li>User A likes User B's listing (l1)</li>
+                                <li>User B likes User A's listing (l2)</li>
+                            </ul>
+                        </li>
+                        <li><strong>WHERE Clause:</strong> Gets matches for current user as either liker or listing owner</li>
+                    </ol>
+                </div>
+                
+                <h3>Processing Matches - PHP Logic</h3>
+                <pre><code><span class="keyword">$matches</span> = [];
+<span class="keyword">$processedUsers</span> = [];
+
+<span class="keyword">while</span> (<span class="keyword">$row</span> = mysqli_fetch_assoc(<span class="keyword">$matchesResult</span>)) {
+    <span class="comment">// Prevent duplicate matches for same user</span>
+    <span class="keyword">if</span> (!in_array(<span class="keyword">$row</span>[<span class="string">'matched_user_id'</span>], <span class="keyword">$processedUsers</span>)) {
+        
+        <span class="comment">// Step 1: Fetch matched user details</span>
+        <span class="keyword">$userSql</span> = <span class="string">"SELECT * FROM users WHERE id = ?"</span>;
+        <span class="keyword">$userStmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$userSql</span>);
+        mysqli_stmt_bind_param(<span class="keyword">$userStmt</span>, <span class="string">"i"</span>, 
+            <span class="keyword">$row</span>[<span class="string">'matched_user_id'</span>]);
+        mysqli_stmt_execute(<span class="keyword">$userStmt</span>);
+        <span class="keyword">$user</span> = mysqli_stmt_get_result(<span class="keyword">$userStmt</span>)->fetch_assoc();
+        
+        <span class="keyword">if</span> (<span class="keyword">$user</span>) {
+            <span class="comment">// Step 2: Fetch their listing details</span>
+            <span class="keyword">$listingSql</span> = <span class="string">"SELECT * FROM listings WHERE id = ?"</span>;
+            <span class="keyword">$listingStmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$listingSql</span>);
+            mysqli_stmt_bind_param(<span class="keyword">$listingStmt</span>, <span class="string">"i"</span>, 
+                <span class="keyword">$row</span>[<span class="string">'their_listing_id'</span>]);
+            mysqli_stmt_execute(<span class="keyword">$listingStmt</span>);
+            <span class="keyword">$listing</span> = mysqli_stmt_get_result(<span class="keyword">$listingStmt</span>)->fetch_assoc();
+            
+            <span class="comment">// Step 3: Add to matches array</span>
+            <span class="keyword">$matches</span>[] = [
+                <span class="string">'user'</span> => <span class="keyword">$user</span>,
+                <span class="string">'listing'</span> => <span class="keyword">$listing</span>,
+                <span class="string">'listing_id'</span> => <span class="keyword">$row</span>[<span class="string">'their_listing_id'</span>],
+                <span class="string">'matched_at'</span> => <span class="keyword">$row</span>[<span class="string">'matched_at'</span>]
+            ];
+            
+            <span class="comment">// Step 4: Mark user as processed</span>
+            <span class="keyword">$processedUsers</span>[] = <span class="keyword">$row</span>[<span class="string">'matched_user_id'</span>];
+        }
+    }
+}</code></pre>
+                
+                <div class="explanation">
+                    <strong>Processing Steps:</strong>
+                    <ol>
+                        <li>Loop through each match from database</li>
+                        <li>Check if user already processed (avoid duplicates)</li>
+                        <li>Fetch matched user's profile information</li>
+                        <li>Fetch their listing that caused the match</li>
+                        <li>Combine data into structured array</li>
+                        <li>Mark user as processed to prevent re-processing</li>
+                    </ol>
+                </div>
+                
+                <h3>Pending Interests - Secondary Query</h3>
+                <p>Shows who liked the current user's listings but hasn't matched back yet:</p>
+                
+                <pre><code><span class="keyword">$pendingSql</span> = <span class="string">"SELECT l.*, u.name, u.profile_photo, u.age, 
+              u.gender, u.city as user_city,
+              lst.title as listing_title, lst.id as listing_id
+         FROM likes l
+         JOIN users u ON l.user_id = u.id
+         JOIN listings lst ON l.listing_id = lst.id
+         WHERE l.listing_owner_id = ? AND l.status = 'pending'
+         ORDER BY l.created_at DESC LIMIT 5"</span>;
+
+<span class="keyword">$pendingStmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$pendingSql</span>);
+mysqli_stmt_bind_param(<span class="keyword">$pendingStmt</span>, <span class="string">"i"</span>, <span class="variable">$userId</span>);
+mysqli_stmt_execute(<span class="keyword">$pendingStmt</span>);
+<span class="keyword">$pendingResult</span> = mysqli_stmt_get_result(<span class="keyword">$pendingStmt</span>);
+<span class="keyword">$pendingInterests</span> = mysqli_fetch_all(<span class="keyword">$pendingResult</span>, MYSQLI_ASSOC);</code></pre>
+                
+                <div class="note">
+                    <strong>Why Two Separate Queries?</strong>
+                    <ul>
+                        <li>Matched: Both users liked each other - ready to chat</li>
+                        <li>Pending: One-sided interest - opportunity to match back</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MESSAGING SYSTEM SECTION -->
+        <div class="section">
+            <div class="section-header">💬 MESSAGING SYSTEM - COMPLETE CODE</div>
+            <div class="section-content">
+                <h2>File Location: /pages/chat/conversation.php</h2>
+                
+                <h3>1. User Validation & Setup</h3>
+                <pre><code><span class="keyword">require_once</span> <span class="string">'../../includes/config.php'</span>;
+<span class="keyword">require_once</span> <span class="string">'../../includes/functions.php'</span>;
+
+<span class="function">requireLogin</span>();
+
+<span class="keyword">global</span> <span class="variable">$conn</span>;
+<span class="keyword">$userId</span> = <span class="variable">$_SESSION</span>[<span class="string">'user_id'</span>];
+<span class="keyword">$otherUserId</span> = <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">'user'</span>]) ? (<span class="number">int</span>)<span class="variable">$_GET</span>[<span class="string">'user'</span>] : <span class="number">0</span>;
+<span class="keyword">$listingId</span> = <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">'listing'</span>]) ? (<span class="number">int</span>)<span class="variable">$_GET</span>[<span class="string">'listing'</span>] : <span class="keyword">null</span>;
+
+<span class="comment">// Validate: Can't chat with self</span>
+<span class="keyword">if</span> (!<span class="keyword">$otherUserId</span> || <span class="keyword">$otherUserId</span> == <span class="keyword">$userId</span>) {
+    <span class="keyword">header</span>(<span class="string">'Location: '</span> . SITE_URL . <span class="string">'/pages/chat/'</span>);
+    <span class="keyword">exit</span>;
+}</code></pre>
+                
+                <div class="explanation">
+                    <strong>Validation Steps:</strong>
+                    <ul>
+                        <li>Require user to be logged in with <span class="inline-code">requireLogin()</span></li>
+                        <li>Get current user ID from session</li>
+                        <li>Get other user ID from URL parameter (<span class="inline-code">?user=123</span>)</li>
+                        <li>Get optional listing ID for context</li>
+                        <li>Prevent self-messaging by checking user IDs</li>
+                    </ul>
+                </div>
+                
+                <h3>2. Fetch Other User Details</h3>
+                <pre><code><span class="keyword">$userSql</span> = <span class="string">"SELECT id, name, profile_photo, occupation, city 
+         FROM users WHERE id = ?"</span>;
+<span class="keyword">$userStmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$userSql</span>);
+mysqli_stmt_bind_param(<span class="keyword">$userStmt</span>, <span class="string">"i"</span>, <span class="keyword">$otherUserId</span>);
+mysqli_stmt_execute(<span class="keyword">$userStmt</span>);
+<span class="keyword">$otherUser</span> = mysqli_stmt_get_result(<span class="keyword">$userStmt</span>)->fetch_assoc();
+
+<span class="comment">// If user doesn't exist, redirect back</span>
+<span class="keyword">if</span> (!<span class="keyword">$otherUser</span>) {
+    <span class="keyword">header</span>(<span class="string">'Location: '</span> . SITE_URL . <span class="string">'/pages/chat/'</span>);
+    <span class="keyword">exit</span>;
+}</code></pre>
+                
+                <h3>3. Handle Message Submission (Form POST)</h3>
+                <pre><code><span class="keyword">if</span> (<span class="variable">$_SERVER</span>[<span class="string">'REQUEST_METHOD'</span>] === <span class="string">'POST'</span> && 
+    <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'message'</span>])) {
+    
+    <span class="keyword">$message</span> = <span class="function">trim</span>(<span class="variable">$_POST</span>[<span class="string">'message'</span>]);
+    
+    <span class="comment">// Validate message is not empty</span>
+    <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="keyword">$message</span>)) {
+        <span class="comment">// Step 1: Insert message into database</span>
+        <span class="keyword">$insertSql</span> = <span class="string">"INSERT INTO messages 
+                       (sender_id, receiver_id, listing_id, message) 
+                       VALUES (?, ?, ?, ?)"</span>;
+        
+        <span class="keyword">$insertStmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$insertSql</span>);
+        
+        <span class="comment">// Types: i=integer, s=string</span>
+        mysqli_stmt_bind_param(<span class="keyword">$insertStmt</span>, <span class="string">"iiis"</span>, 
+            <span class="keyword">$userId</span>, <span class="keyword">$otherUserId</span>, 
+            <span class="keyword">$listingId</span>, <span class="keyword">$message</span>);
+        
+        <span class="comment">// Step 2: Execute insert</span>
+        mysqli_stmt_execute(<span class="keyword">$insertStmt</span>);
+    }
+    
+    <span class="comment">// Step 3: Redirect to prevent form re-submission</span>
+    <span class="keyword">header</span>(<span class="string">'Location: '</span> . <span class="variable">$_SERVER</span>[<span class="string">'REQUEST_URI'</span>]);
+    <span class="keyword">exit</span>;
+}</code></pre>
+                
+                <div class="explanation">
+                    <strong>Message Submission Flow:</strong>
+                    <ol>
+                        <li>Check if form was POSTed and has message data</li>
+                        <li>Sanitize message (trim whitespace)</li>
+                        <li>Validate message is not empty</li>
+                        <li>Prepare INSERT statement with placeholders</li>
+                        <li>Bind parameters (sender_id, receiver_id, listing_id, message)</li>
+                        <li>Execute INSERT</li>
+                        <li>Redirect to prevent POST resubmission if user refreshes</li>
+                    </ol>
+                </div>
+                
+                <h3>4. Mark Messages as Read</h3>
+                <pre><code><span class="comment">// Auto-mark incoming messages as read when user views chat</span>
+<span class="keyword">$markReadSql</span> = <span class="string">"UPDATE messages 
+                 SET is_read = 1 
+                 WHERE sender_id = ? AND receiver_id = ?"</span>;
+
+<span class="keyword">$markReadStmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$markReadSql</span>);
+mysqli_stmt_bind_param(<span class="keyword">$markReadStmt</span>, <span class="string">"ii"</span>, 
+    <span class="keyword">$otherUserId</span>, <span class="keyword">$userId</span>);
+mysqli_stmt_execute(<span class="keyword">$markReadStmt</span>);</code></pre>
+                
+                <div class="note">
+                    <strong>Read Status Logic:</strong>
+                    <ul>
+                        <li>When user opens a conversation, all messages FROM other user TO current user are marked as read</li>
+                        <li>This shows other user: "✓✓ Read"</li>
+                    </ul>
+                </div>
+                
+                <h3>5. Fetch Message History</h3>
+                <pre><code><span class="keyword">$msgSql</span> = <span class="string">"SELECT m.*, 
+           CASE WHEN m.sender_id = ? THEN 'sent' ELSE 'received' END 
+           as direction
+         FROM messages m
+         WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+            OR (m.sender_id = ? AND m.receiver_id = ?)
+         ORDER BY m.created_at ASC"</span>;
+
+<span class="keyword">$msgStmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$msgSql</span>);
+
+<span class="comment">// Bind parameters (all variations of user IDs)</span>
+mysqli_stmt_bind_param(<span class="keyword">$msgStmt</span>, <span class="string">"iiiii"</span>, 
+    <span class="keyword">$userId</span>,           <span class="comment">// For CASE WHEN</span>
+    <span class="keyword">$userId</span>,           <span class="comment">// For first WHERE condition (sender)</span>
+    <span class="keyword">$otherUserId</span>,      <span class="comment">// For first WHERE condition (receiver)</span>
+    <span class="keyword">$otherUserId</span>,      <span class="comment">// For second WHERE condition (sender)</span>
+    <span class="keyword">$userId</span>             <span class="comment">// For second WHERE condition (receiver)</span>
+);
+
+mysqli_stmt_execute(<span class="keyword">$msgStmt</span>);
+<span class="keyword">$messages</span> = mysqli_fetch_all(
+    mysqli_stmt_get_result(<span class="keyword">$msgStmt</span>), 
+    MYSQLI_ASSOC
+);</code></pre>
+                
+                <div class="explanation">
+                    <strong>Query Logic - Two-way Conversation:</strong>
+                    <ul>
+                        <li><strong>First Condition:</strong> Messages I sent to them
+                            <ul>
+                                <li><span class="inline-code">sender_id = ? (userId)</span></li>
+                                <li><span class="inline-code">receiver_id = ? (otherUserId)</span></li>
+                            </ul>
+                        </li>
+                        <li><strong>Second Condition:</strong> Messages they sent to me
+                            <ul>
+                                <li><span class="inline-code">sender_id = ? (otherUserId)</span></li>
+                                <li><span class="inline-code">receiver_id = ? (userId)</span></li>
+                            </ul>
+                        </li>
+                        <li><strong>CASE Statement:</strong> Marks each message as 'sent' or 'received' for styling</li>
+                        <li><strong>ORDER BY:</strong> ASC ensures messages show in chronological order</li>
+                    </ul>
+                </div>
+                
+                <h3>6. Display Messages in HTML</h3>
+                <pre><code><span class="comment">&lt;?php foreach ($messages as $msg): ?&gt;</span>
+<span class="string">&lt;div class="flex &lt;?php echo $msg['direction'] === 'sent' ? 'justify-end' : 'justify-start'; ?&gt;"&gt;</span>
+    <span class="string">&lt;div class="</span>
+        <span class="string">&lt;?php echo $msg['direction'] === 'sent' 
+            ? 'bg-primary text-white rounded-2xl rounded-br-md' 
+            : 'bg-white text-gray-800 rounded-2xl rounded-bl-md shadow'; ?&gt;"</span>
+    <span class="string">&gt;</span>
+        <span class="string">&lt;p class="whitespace-pre-wrap break-words"&gt;</span>
+            <span class="string">&lt;?php echo htmlspecialchars($msg['message']); ?&gt;</span>
+        <span class="string">&lt;/p&gt;</span>
+        
+        <span class="string">&lt;p class="text-xs mt-1"&gt;</span>
+            <span class="string">&lt;?php echo date('h:i A', strtotime($msg['created_at'])); ?&gt;</span>
+            <span class="string">&lt;?php if ($msg['direction'] === 'sent'): ?&gt;</span>
+                <span class="comment">&lt;!-- Show read status for sent messages --&gt;</span>
+                <span class="string">&lt;span&gt;&lt;?php echo $msg['is_read'] ? '✓✓ Read' : '✓ Sent'; ?&gt;&lt;/span&gt;</span>
+            <span class="string">&lt;?php endif; ?&gt;</span>
+        <span class="string">&lt;/p&gt;</span>
+    <span class="string">&lt;/div&gt;</span>
+<span class="string">&lt;/div&gt;</span>
+<span class="comment">&lt;?php endforeach; ?&gt;</span></code></pre>
+                
+                <div class="explanation">
+                    <strong>Display Logic:</strong>
+                    <ul>
+                        <li>Messages I sent: Aligned right, blue background</li>
+                        <li>Messages they sent: Aligned left, white background</li>
+                        <li>Read status: Shows "✓✓ Read" if marked as read, "✓ Sent" if only sent</li>
+                        <li>Timestamp: Shows when message was created</li>
+                    </ul>
+                </div>
+                
+                <h3>7. Message Input Form</h3>
+                <pre><code><span class="string">&lt;form method="POST" class="flex items-center gap-3"&gt;</span>
+    <span class="string">&lt;input type="text" 
+           name="message" 
+           id="messageInput" 
+           placeholder="Type a message..." 
+           autocomplete="off" 
+           required&gt;</span>
+    
+    <span class="string">&lt;button type="submit" 
+            class="bg-primary text-white w-12 h-12 rounded-full"&gt;</span>
+        <span class="string">&lt;svg&gt;...send icon...&lt;/svg&gt;</span>
+    <span class="string">&lt;/button&gt;</span>
+<span class="string">&lt;/form&gt;</span>
+
+<span class="comment">&lt;script&gt;</span>
+<span class="keyword">function</span> <span class="function">sendQuickReply</span>(<span class="keyword">message</span>) {
+    <span class="variable">document</span>.getElementById(<span class="string">'messageInput'</span>).value = <span class="keyword">message</span>;
+    <span class="variable">document</span>.getElementById(<span class="string">'messageForm'</span>).submit();
+}
+<span class="comment">&lt;/script&gt;</span></code></pre>
+            </div>
+        </div>
+        
+        <!-- COMPARISON TABLE -->
+        <div class="section">
+            <div class="section-header">📊 Matching vs Messaging Comparison</div>
+            <div class="section-content">
+                <table>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Matching Algorithm</th>
+                        <th>Messaging System</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Purpose</strong></td>
+                        <td>Find compatible users based on mutual likes</td>
+                        <td>Enable communication between matched users</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Main Table</strong></td>
+                        <td><code class="inline-code">likes</code></td>
+                        <td><code class="inline-code">messages</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Key Field</strong></td>
+                        <td><code class="inline-code">status</code> (pending/matched/declined)</td>
+                        <td><code class="inline-code">is_read</code> (0/1)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Query Type</strong></td>
+                        <td>Complex self-JOIN with CASE</td>
+                        <td>Simple WHERE with OR conditions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data Structure</strong></td>
+                        <td>Array of matches with user + listing data</td>
+                        <td>Flat array of messages with direction</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Update Operation</strong></td>
+                        <td>Like/Unlike updates status</td>
+                        <td>Marks messages as read</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <!-- KEY CONCEPTS -->
+        <div class="section">
+            <div class="section-header">🔑 Key Concepts Explained</div>
+            <div class="section-content">
+                <h3>1. Mutual Matching Logic</h3>
+                <pre><code><span class="comment">// Scenario: User A matches with User B</span>
+
+<span class="comment">// Database state:</span>
+likes:
+  user_id=10 likes listing_id=50 (owned by user_id=20)  ← User A likes User B's listing
+  user_id=20 likes listing_id=40 (owned by user_id=10)  ← User B likes User A's listing
+
+<span class="comment">// The JOIN finds this pattern:</span>
+l1: user_id=10, listing_owner_id=20  (A → B)
+l2: user_id=20, listing_owner_id=10  (B → A)
+
+<span class="comment">// Result: matched_user_id=20, direction='received'</span></code></pre>
+                
+                <h3>2. Prepared Statements Security</h3>
+                <pre><code><span class="comment">// Why we use prepared statements everywhere:</span>
+
+<span class="comment">// UNSAFE (vulnerable to SQL injection):</span>
+<span class="keyword">$sql</span> = <span class="string">"SELECT * FROM users WHERE email = '"</span> . <span class="keyword">$email</span> . <span class="string">"'"</span>;
+
+<span class="comment">// SAFE (prepared statement):</span>
+<span class="keyword">$sql</span> = <span class="string">"SELECT * FROM users WHERE email = ?"</span>;
+<span class="keyword">$stmt</span> = mysqli_prepare(<span class="variable">$conn</span>, <span class="keyword">$sql</span>);
+mysqli_stmt_bind_param(<span class="keyword">$stmt</span>, <span class="string">"s"</span>, <span class="keyword">$email</span>);
+mysqli_stmt_execute(<span class="keyword">$stmt</span>);</code></pre>
+                
+                <h3>3. Message Direction Determination</h3>
+                <pre><code><span class="comment">// How we know if message is sent or received:</span>
+
+<span class="keyword">$direction</span> = <span class="keyword">$msg</span>[<span class="string">'sender_id'</span>] == <span class="variable">$_SESSION</span>[<span class="string">'user_id'</span>] 
+    ? <span class="string">'sent'</span> 
+    : <span class="string">'received'</span>;
+
+<span class="comment">// CSS classes applied:</span>
+<span class="comment">// 'sent' → justify-end, bg-primary (blue on right)</span>
+<span class="comment">// 'received' → justify-start, bg-white (white on left)</span></code></pre>
+            </div>
+        </div>
+        
+        <!-- FLOW DIAGRAMS -->
+        <div class="section">
+            <div class="section-header">🔄 System Flow Diagrams</div>
+            <div class="section-content">
+                <h3>Matching Flow</h3>
+                <pre><code>User A                              Database                    User B
+  ↓                                   ↓                             ↓
+Browse listings              ← Fetch active listings  →      Post room listing
+  ↓
+Click "Like" on User B's listing
+  ↓
+INSERT into likes (A→B)      ← Insert like record  →         User B sees "1 interest"
+  ↓
+Check matches                                                  Browse & finds A's listing
+  ↓                                                            ↓
+                                                               Click "Like" on A's listing
+                                                               ↓
+                                                               INSERT into likes (B→A)
+                                                               ↓
+Back to matches page
+  ↓
+Query: Find where A liked B AND B liked A
+  ↓
+MATCH FOUND! ← Shows "Matched!" with User B
+  ↓
+Click "Message" button
+  ↓
+Navigate to conversation.php?user=B
+  ↓
+                                                               User B also sees match
+                                                               ↓
+                                                               Clicks "Message" on A
+                                                               ↓
+                                                               Navigate to conversation
+  ↓                                                            ↓
+Send message: "Hi, interested?"  → INSERT into messages
+  ↓                                   ↓
+                                      User B sees message "Hi, interested?" ← 'received'
+                                      ↓
+                                      Marks as read (UPDATE is_read=1)
+                                      ↓
+                                      Types response: "Sure, when can you visit?"
+                                      ↓
+                                      ← INSERT into messages
+User A sees: "Sure, when can you visit?" ← 'received'</code></pre>
+                
+                <h3>Database State Throughout Matching Process</h3>
+                <table>
+                    <tr>
+                        <th>Step</th>
+                        <th>Action</th>
+                        <th>Database Table: likes</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>User A likes User B's listing</td>
+                        <td><code class="inline-code">user_id=A, listing_id=B's, status='pending'</code></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>User B sees 1 pending interest</td>
+                        <td><code class="inline-code">Same row visible in pending query</code></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>User B likes User A's listing back</td>
+                        <td><code class="inline-code">NEW ROW: user_id=B, listing_id=A's, status='pending'</code></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Both check "My Matches"</td>
+                        <td><code class="inline-code">Matching query detects BOTH rows = MATCH!</code></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Users message each other</td>
+                        <td><code class="inline-code">messages table: sender/receiver/text/is_read</code></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <!-- COMMON QUESTIONS -->
+        <div class="section">
+            <div class="section-header">❓ Frequently Asked Questions (For Viva)</div>
+            <div class="section-content">
+                <h3>Q1: Why do we use CASE WHEN in the matching query?</h3>
+                <p><strong>A:</strong> The CASE WHEN determines which user ID is the "other" person. Since likes work in both directions, we need to figure out: if l1.user_id is our user, then the match is l2.user_id. If l1.user_id is NOT our user, then the match is l1.user_id.</p>
+                
+                <h3>Q2: How does the self-JOIN in the matching query work?</h3>
+                <p><strong>A:</strong> We join the likes table to itself (l1 JOIN l2). This allows us to find two matching records: one where user A likes user B's listing, and another where user B likes user A's listing. Without the JOIN, we couldn't find this mutual relationship.</p>
+                
+                <h3>Q3: What prevents duplicate matches in the results?</h3>
+                <p><strong>A:</strong> We use SELECT DISTINCT to avoid getting the same match twice, and we maintain a $processedUsers array in PHP to skip already-processed users in the while loop.</p>
+                
+                <h3>Q4: How does the messaging system prevent unauthorized chat access?</h3>
+                <p><strong>A:</strong> We check if the user is logged in with requireLogin(), validate the URL parameter, and prevent self-messaging. In production, you could add a check to ensure users have actually matched before allowing messages.</p>
+                
+                <h3>Q5: Why do we redirect after POST instead of using AJAX?</h3>
+                <p><strong>A:</strong> Redirecting after POST prevents form resubmission. If user refreshes the page, it won't accidentally send the same message twice. This is the "Post-Redirect-Get" pattern.</p>
+                
+                <h3>Q6: How is read status managed in messaging?</h3>
+                <p><strong>A:</strong> When a user opens a conversation, all messages from the other user are automatically marked as read using UPDATE query. The message display shows "✓ Sent" or "✓✓ Read" based on the is_read flag.</p>
+                
+                <h3>Q7: What are the 5 parameters in the message fetch query?</h3>
+                <p><strong>A:</strong> 
+                    <ol>
+                        <li>$userId (for CASE statement)</li>
+                        <li>$userId (first WHERE - sender_id)</li>
+                        <li>$otherUserId (first WHERE - receiver_id)</li>
+                        <li>$otherUserId (second WHERE - sender_id)</li>
+                        <li>$userId (second WHERE - receiver_id)</li>
+                    </ol>
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>💡 Complete Code Documentation for RoomSathi Project</p>
+            <p>All code uses MySQLi prepared statements for security</p>
+            <p>Ready for production deployment! 🚀</p>
+        </div>
+    </div>
+</body>
+</html>

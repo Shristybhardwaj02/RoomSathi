@@ -37,3 +37,45 @@ Use the **Resume-friendly bullets** above directly on your CV under this project
 License
 -------
 This project is released under the MIT License. See `LICENSE` for details.
+
+Screenshot
+----------
+Add a project screenshot to showcase the UI. Place an image at `assets/images/screenshot.png` and add or replace the line below:
+
+![RoomSathi screenshot](assets/images/screenshot.png)
+
+Live demo / Deployment notes
+---------------------------
+- GitHub Pages only serves static sites (HTML/CSS/JS). Since RoomSathi is PHP/MySQL, GitHub Pages cannot run the dynamic app.
+- For a live demo consider deploying to a PHP-capable host (shared hosting, Render, Railway, or a VPS). Example quick hosts:
+	- Render (free tier for static / paid web services) — supports Docker or static only for free tier
+	- Deploy to a LAMP-compatible shared hosting or use a small VPS and install XAMPP/LAMP
+
+Quick deploy alternative (static demo):
+- If you can extract the frontend pages (HTML/CSS/JS) into a static preview, push them to a `gh-pages` branch and enable GitHub Pages to show a static UI preview. This will not include backend functionality like signup or messaging.
+
+Enable GitHub Pages (static preview only)
+--------------------------------------
+1. Create a branch `gh-pages` containing only the static assets (or a `docs/` folder) and push it.
+2. On GitHub: `Settings` → `Pages` → choose `gh-pages` or `main/docs` and save.
+3. GitHub will provide a URL like `https://Shristybhardwaj02.github.io/RoomSathi/`.
+
+Example code snippet (DB connection)
+----------------------------------
+Add this as a short example in `includes/config.php.example` to show credential usage on your resume (don't commit real credentials):
+
+```php
+<?php
+// includes/config.php.example
+$db_host = 'localhost';
+$db_user = 'db_user';
+$db_pass = 'db_pass';
+$db_name = 'roomsaathi';
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+}
+?>
+```
+
+If you'd like, I can prepare a `gh-pages` static preview (extract frontend HTML/CSS) and push it to a `gh-pages` branch for a hosted UI snapshot.

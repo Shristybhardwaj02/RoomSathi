@@ -14,9 +14,11 @@ uploads/*
 # OS files
 .DS_Store
 Thumbs.db
+ehthumbs.db
 
 # Logs
 *.log
 
 # IDE
 .vscode/
+.idea/

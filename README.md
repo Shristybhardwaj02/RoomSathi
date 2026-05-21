@@ -1,4 +1,5 @@
 # RoomSathi
+
 🏠 Find Your Perfect RoomSathi — property & roommate matching web app
 
 Project summary
@@ -79,3 +80,46 @@ if ($conn->connect_error) {
 ```
 
 If you'd like, I can prepare a `gh-pages` static preview (extract frontend HTML/CSS) and push it to a `gh-pages` branch for a hosted UI snapshot.
+--
+RoomSathi is a PHP/MySQL web application for browsing and posting room/listing ads and matching users based on preferences.
+
+Key features
+--
+- Browse listings with images
+- Post and edit listings (with image uploads)
+- User authentication (signup/login/reset password)
+- Messaging between users (chat)
+- Simple matching algorithm for roommate compatibility
+
+Tech stack
+--
+- PHP (vanilla)
+- MySQL (import `sql/roomsaathi.sql`)
+- HTML/CSS/JavaScript
+- XAMPP / LAMP for local development
+
+Quick start (local)
+--
+1. Install XAMPP and start Apache + MySQL.
+2. Place the project in your web root, e.g. `C:\xampp\htdocs\RoomSathi-1`.
+3. Create a MySQL database and import `sql/roomsaathi.sql`.
+4. Update database credentials in `includes/config.php`.
+5. Open `http://localhost/RoomSathi-1` in your browser.
+
+Notes
+--
+- Ensure the `uploads/` folders are writable by the web server.
+- Add any environment secrets (API keys) to a local `.env` and do NOT commit it.
+
+Contributing
+--
+Feel free to open issues or pull requests. For major changes, please open an issue first to discuss what you'd like to change.
+
+License
+--
+This project is available under the MIT License. See `LICENSE` for details.
+
+Contact
+--
+Project maintained by the author. Link: https://github.com/Shristybhardwaj02/RoomSathi
+>>>>>>> b975654 (Improve README, add LICENSE (MIT) and .gitignore)

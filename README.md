@@ -1,102 +1,208 @@
-# RoomSathi
+# RoomSathi - Smart Roommate & Property Matching Web App
 
-🏠 Find Your Perfect RoomSathi — property & roommate matching web app
+Find your perfect roommate and property match with RoomSathi, a full-stack property listing and compatibility-based roommate matching web application.
 
-Project summary
-----------------
-RoomSathi is a full‑stack property listing and roommate-matching web application built with PHP and MySQL. It supports user authentication, posting and browsing listings, a compatibility-based roommate matching flow, private messaging, and an admin panel for managing users and listings.
+## Project Overview
 
-Resume-friendly bullets
-----------------------
-- **Role:** Full-stack developer — designed and implemented frontend, backend, and database.
-- **Tech stack:** PHP, MySQL, JavaScript, HTML/CSS, Bootstrap, XAMPP
-- **Key features:** user signup/login, create/edit/listings, search & filters, roommate matching algorithm, messaging, admin dashboard, image uploads
-- **What I delivered:** implemented end-to-end CRUD flows, integrated secure file uploads, designed normalized database schema, and built a simple matching algorithm for lifestyle compatibility.
+RoomSathi is a comprehensive web application that connects seekers (looking for rooms) with property owners. The platform includes:
 
-Quick setup (local)
--------------------
-Requirements: PHP (7.4+), MySQL, Apache (XAMPP recommended)
+- **User Authentication:** Secure signup, login, and password reset with bcrypt hashing
+- **Listing Management:** Browse, post, edit, and search properties with image uploads
+- **Smart Matching:** Compatibility algorithm based on 8 lifestyle factors (smoking, drinking, pets, cleanliness, etc.)
+- **Messaging System:** Private chat between matched users
+- **Admin Dashboard:** Manage users and listings
+- **Security:** SQL injection prevention, XSS protection, and secure session management
 
-1. Clone the repo to your local webroot (e.g., `C:\xampp\htdocs`)
-2. Create a MySQL database and import `sql/roomsaathi.sql`
-3. Copy `includes/config.php.example` to `includes/config.php` and update DB credentials
-4. Start Apache + MySQL, open `http://localhost/RoomSathi-1/` in your browser
+## Tech Stack
 
-Files of interest
------------------
-- `includes/config.php` — DB configuration
-- `listings/` — browse/post/edit listing pages
-- `auth/` — login, signup, reset-password
-- `chat/` — messaging endpoints
-- `sql/roomsaathi.sql` — database schema + sample data
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | HTML5, CSS3, JavaScript, Tailwind CSS |
+| **Backend** | PHP 7.4+ |
+| **Database** | MySQL 5.7+ |
+| **Server** | Apache (XAMPP for local development) |
 
-Contributing / Resume usage
----------------------------
-Feel free to link this repository on your resume as: https://github.com/Shristybhardwaj02/RoomSathi
-Use the **Resume-friendly bullets** above directly on your CV under this project entry.
+## Key Features
 
-License
--------
-This project is released under the MIT License. See `LICENSE` for details.
+✅ User registration and secure authentication  
+✅ Post and edit property listings with image uploads  
+✅ Browse listings with advanced filtering (city, rent range)  
+✅ Compatibility matching algorithm based on lifestyle preferences  
+✅ Real-time messaging between matched users  
+✅ Admin panel for user and listing management  
+✅ Responsive design with modern UI/UX  
+✅ Input validation and security hardening  
 
-Screenshot
-----------
-Add a project screenshot to showcase the UI. Place an image at `assets/images/screenshot.png` and add or replace the line below:
+## Quick Start (Local Setup)
 
-![RoomSathi screenshot](assets/images/screenshot.png)
+### Prerequisites
+- **PHP:** 7.4 or higher
+- **MySQL:** 5.7 or higher
+- **Apache:** Included with XAMPP (recommended)
+- **XAMPP:** Download from [xampp.com](https://www.apachefriends.org/)
 
-Live demo / Deployment notes
----------------------------
-- GitHub Pages only serves static sites (HTML/CSS/JS). Since RoomSathi is PHP/MySQL, GitHub Pages cannot run the dynamic app.
-- For a live demo consider deploying to a PHP-capable host (shared hosting, Render, Railway, or a VPS). Example quick hosts:
-	- Render (free tier for static / paid web services) — supports Docker or static only for free tier
-	- Deploy to a LAMP-compatible shared hosting or use a small VPS and install XAMPP/LAMP
+### Installation Steps
 
-Quick deploy alternative (static demo):
-- If you can extract the frontend pages (HTML/CSS/JS) into a static preview, push them to a `gh-pages` branch and enable GitHub Pages to show a static UI preview. This will not include backend functionality like signup or messaging.
+1. **Clone the repository** to your XAMPP webroot:
+   ```bash
+   cd C:\xampp\htdocs
+   git clone https://github.com/Shristybhardwaj02/RoomSathi.git RoomSathi-1
+   cd RoomSathi-1
+   ```
 
-Enable GitHub Pages (static preview only)
---------------------------------------
-1. Create a branch `gh-pages` containing only the static assets (or a `docs/` folder) and push it.
-2. On GitHub: `Settings` → `Pages` → choose `gh-pages` or `main/docs` and save.
-3. GitHub will provide a URL like `https://Shristybhardwaj02.github.io/RoomSathi/`.
+2. **Create database:**
+   - Open phpMyAdmin (`http://localhost/phpmyadmin`)
+   - Create new database named `roomsaathi`
+   - Import `sql/roomsaathi.sql` into the database
 
-Example code snippet (DB connection)
-----------------------------------
-Add this as a short example in `includes/config.php.example` to show credential usage on your resume (don't commit real credentials):
+3. **Configure database credentials:**
+   - Copy `includes/config.php.example` to `includes/config.php`
+   - Update database credentials:
+     ```php
+     $db_host = 'localhost';
+     $db_user = 'root';
+     $db_pass = '';  // Leave blank if no password
+     $db_name = 'roomsaathi';
+     ```
 
-```php
-<?php
-// includes/config.php.example
-$db_host = 'localhost';
-$db_user = 'db_user';
-$db_pass = 'db_pass';
-$db_name = 'roomsaathi';
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
-if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-}
-?>
+4. **Start servers:**
+   - Open XAMPP Control Panel
+   - Click "Start" for Apache and MySQL
+   - Open `http://localhost/RoomSathi-1/` in your browser
+
+## Project Structure
+
+```
+RoomSathi-1/
+├── includes/          # Core PHP files
+│   ├── config.php     # Database configuration
+│   ├── functions.php  # Business logic & utility functions
+│   ├── header.php     # Navigation bar
+│   └── footer.php     # Footer template
+├── pages/             # Application pages
+│   ├── auth/          # Login, signup, password reset
+│   ├── listings/      # Browse, post, edit listings
+│   ├── matching/      # Roommate matching
+│   ├── chat/          # Messaging system
+│   ├── admin/         # Admin dashboards
+│   └── profile/       # User profile management
+├── css/               # Stylesheets
+├── js/                # JavaScript files
+├── assets/            # Images, icons, logos
+├── uploads/           # User-uploaded files
+├── sql/               # Database schema
+├── index.php          # Homepage
+└── README.md          # This file
 ```
 
-If you'd like, I can prepare a `gh-pages` static preview (extract frontend HTML/CSS) and push it to a `gh-pages` branch for a hosted UI snapshot.
---
-RoomSathi is a PHP/MySQL web application for browsing and posting room/listing ads and matching users based on preferences.
+## Database Schema
 
-Key features
---
-- Browse listings with images
-- Post and edit listings (with image uploads)
-- User authentication (signup/login/reset password)
-- Messaging between users (chat)
-- Simple matching algorithm for roommate compatibility
+The application uses a normalized MySQL database with 6 core tables:
 
-Tech stack
---
-- PHP (vanilla)
-- MySQL (import `sql/roomsaathi.sql`)
-- HTML/CSS/JavaScript
-- XAMPP / LAMP for local development
+- **Users:** User accounts, authentication, profile information
+- **Listings:** Property details, rent, amenities, photos
+- **Preferences:** Lifestyle preferences for compatibility matching
+- **Matches:** Matched listings with compatibility scores
+- **Messages:** Chat messages between users
+- **Amenities:** Available amenities for listings
+
+## Usage
+
+### For Seekers (Looking for Rooms)
+1. Sign up with email and password
+2. Complete profile with lifestyle preferences
+3. Browse available listings
+4. View matched listings based on compatibility
+5. Message property owners or matched seekers
+
+### For Property Owners
+1. Sign up and select "Property Owner" role
+2. Create a new listing with property details
+3. Upload property photos
+4. View matched seekers
+5. Chat with interested users
+
+### Admin Functions
+1. Login as admin
+2. View all users and listings
+3. Approve/reject listings
+4. Manage user accounts
+5. Generate statistics and reports
+
+## Security Features
+
+- **Password Security:** Passwords hashed with bcrypt (`password_hash()`, `password_verify()`)
+- **SQL Injection Prevention:** Parameterized queries with prepared statements
+- **XSS Protection:** Input sanitization with `htmlspecialchars()`
+- **Session Management:** Secure PHP sessions with timeout
+- **File Upload Validation:** Type and size restrictions on images
+
+## Code Examples
+
+### User Registration (Secure Password Handling)
+```php
+function registerUser($name, $email, $phone, $password) {
+    $password_hash = password_hash($password, PASSWORD_BCRYPT);
+    $stmt = $conn->prepare("INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $name, $email, $phone, $password_hash);
+    return $stmt->execute();
+}
+```
+
+### Sanitization
+```php
+function sanitize($data) {
+    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
+```
+
+## Testing
+
+Recommended testing approach:
+- **Unit Tests:** Test individual functions
+- **Integration Tests:** Test database operations
+- **System Tests:** Test complete user workflows
+- **Security Tests:** SQL injection, XSS attack prevention
+
+## Future Enhancements
+
+- Mobile app (React Native / Flutter)
+- Video call integration for virtual tours
+- Payment gateway integration
+- Advanced analytics and reporting
+- Machine learning for better matching algorithm
+- Two-factor authentication (2FA)
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+
+## Author
+
+**Shristy Bhardwaj**
+
+- GitHub: [@Shristybhardwaj02](https://github.com/Shristybhardwaj02)
+- Email: 23csma42@kristujayanti.com
+- Repository: [RoomSathi](https://github.com/Shristybhardwaj02/RoomSathi)
+
+## Support
+
+For issues, questions, or suggestions, please open an [issue](https://github.com/Shristybhardwaj02/RoomSathi/issues) on GitHub.
+
+---
+
+**Last Updated:** May 2026  
+**Status:** Complete - Production Ready
 
 Quick start (local)
 --

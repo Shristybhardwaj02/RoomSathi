@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomSathi - Data Validation Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #050f91 0%, #3b5bdb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px -10px rgba(5, 15, 145, 0.15);
+        }
+        .header h1 {
+            color: #050f91;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .header p {
+            color: #666;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        .validation-type {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 40px -10px rgba(5, 15, 145, 0.15);
+            border-top: 5px solid #050f91;
+        }
+        .validation-type h2 {
+            color: #050f91;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .validation-type.available {
+            border-left: 5px solid #4CAF50;
+        }
+        .validation-type.available h2::before {
+            content: "✓";
+            color: #4CAF50;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .status-available {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #4CAF50;
+        }
+        .definition {
+            background: #f5f5f5;
+            border-left: 4px solid #3b5bdb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .definition strong {
+            color: #050f91;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border: 2px solid #3b5bdb;
+        }
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .attr { color: #9cdcfe; }
+        .code-block .value { color: #b5cea8; }
+        .examples {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .example-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-left: 4px solid #3b5bdb;
+            border-radius: 4px;
+        }
+        .example-item h4 {
+            color: #050f91;
+            margin-bottom: 8px;
+        }
+        .example-item p {
+            color: #666;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        .file-location {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: #e65100;
+        }
+        .visual-demo {
+            background: #f0f4ff;
+            border: 2px solid #050f91;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .visual-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .visual-demo input, .visual-demo select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .visual-demo input:focus, .visual-demo select:focus {
+            outline: none;
+            border-color: #050f91;
+            box-shadow: 0 0 0 3px rgba(5, 15, 145, 0.1);
+        }
+        .visual-demo input:invalid {
+            border-color: #f44336;
+        }
+        .visual-demo input:valid {
+            border-color: #4CAF50;
+        }
+        .validation-flow {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            background: #050f91;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .flow-arrow {
+            color: #3b5bdb;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background: #050f91;
+            color: white;
+            font-weight: 600;
+        }
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .comparison-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        .comparison-item h4 {
+            color: #050f91;
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            .validation-flow {
+                flex-direction: column;
+            }
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📋 RoomSathi - Data Validation Documentation</h1>
+            <p>Complete guide to all validation types used in the project with examples, locations, and visual demonstrations</p>
+        </div>
+
+        <!-- 1. Field Level Validation -->
+        <div class="validation-type available">
+            <h2>Field Level Validation</h2>
+            <span class="status-badge status-available">✓ AVAILABLE IN PROJECT</span>
+            
+            <div class="definition">
+                <strong>What is it?</strong> Validation on individual input fields using HTML5 attributes or JavaScript. Each field is validated as soon as user starts typing or moves to next field.
+            </div>
+
+            <h3>Implementation in RoomSathi:</h3>
+            <div class="code-block">
+&lt;input type="email" name="email" required&gt;
+&lt;input type="tel" name="phone" pattern="[0-9]{10}" maxlength="10"&gt;
+&lt;input type="password" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"&gt;
+&lt;input type="text" pattern="^[A-Za-z\s]+$" placeholder="Name"&gt;
+&lt;input type="number" min="18" max="60" name="age"&gt;
+            </div>
+
+            <h3>Examples in Project:</h3>
+            <div class="examples">
+                <div class="example-item">
+                    <h4>📧 Email Field</h4>
+                    <p><strong>Location:</strong> signup.php, login.php, forgot-password.php</p>
+                    <p><strong>Validation:</strong> type="email" (validates format automatically)</p>
+                    <p><strong>Error:</strong> Shows red border if not valid email format</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>📱 Phone Number Field</h4>
+                    <p><strong>Location:</strong> signup.php, profile editing</p>
+                    <p><strong>Validation:</strong> pattern="[0-9]{10}" + maxlength="10"</p>
+                    <p><strong>What it does:</strong> Only allows 10 digits, won't let you type more</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>🔐 Password Field</h4>
+                    <p><strong>Location:</strong> signup.php, reset-password.php</p>
+                    <p><strong>Validation:</strong> minlength="8" + pattern (must have uppercase, lowercase, number, special char)</p>
+                    <p><strong>Visual Feedback:</strong> Real-time password strength indicator</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>👤 Name Field</h4>
+                    <p><strong>Location:</strong> signup.php, profile setup</p>
+                    <p><strong>Validation:</strong> pattern="^[A-Za-z\s]+$" (only letters and spaces)</p>
+                    <p><strong>Blocks:</strong> Numbers, special characters</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>🎂 Age Field</h4>
+                    <p><strong>Location:</strong> profile/setup-step1.php</p>
+                    <p><strong>Validation:</strong> min="18" max="60"</p>
+                    <p><strong>Restrictions:</strong> Age must be between 18-60 years</p>
+                </div>
+            </div>
+
+            <h3>Visual Demo:</h3>
+            <div class="visual-demo">
+                <h4 style="color: #050f91; margin-bottom: 15px;">Try typing in these fields to see validation:</h4>
+                <form id="fieldValidationDemo">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Email (Invalid = red border)</label>
+                        <input type="email" placeholder="Enter valid email">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Phone (Only 10 digits)</label>
+                        <input type="tel" pattern="[0-9]{10}" maxlength="10" placeholder="9876543210">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Age (18-60 only)</label>
+                        <input type="number" min="18" max="60" placeholder="Enter age">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Name (Letters only)</label>
+                        <input type="text" pattern="^[A-Za-z\s]+$" placeholder="Enter name" onkeypress="return /[a-zA-Z\s]/.test(event.key)">
+                    </div>
+                </form>
+            </div>
+
+            <div class="file-location">
+                📁 <strong>Files:</strong> signup.php, login.php, profile/setup-step1.php, listings/post.php
+            </div>
+        </div>
+
+        <!-- 2. Form Level Validation -->
+        <div class="validation-type available">
+            <h2>Form Level Validation</h2>
+            <span class="status-badge status-available">✓ AVAILABLE IN PROJECT</span>
+            
+            <div class="definition">
+                <strong>What is it?</strong> Server-side validation that checks entire form when submitted. Verifies all required fields are filled, data is complete, and allows showing multiple errors at once.
+            </div>
+
+            <h3>Implementation in RoomSathi (signup.php):</h3>
+            <div class="code-block">
+<span class="keyword">if</span> ($_SERVER[<span class="string">'REQUEST_METHOD'</span>] === <span class="string">'POST'</span>) {
+    <span class="comment">// Get all form data</span>
+    $name = sanitize($_POST[<span class="string">'name'</span>]);
+    $email = sanitize($_POST[<span class="string">'email'</span>]);
+    $phone = sanitize($_POST[<span class="string">'phone'</span>]);
+    $password = $_POST[<span class="string">'password'</span>];
+    
+    <span class="comment">// Form-level validation (check all fields)</span>
+    <span class="keyword">if</span> (empty($name) || empty($email) || empty($phone) || empty($password)) {
+        $error = <span class="string">'All fields are required'</span>;
+    } <span class="keyword">elseif</span> (!preg_match(<span class="string">'/^[A-Za-z\s]+$/'</span>, $name)) {
+        $error = <span class="string">'Name should only contain letters'</span>;
+    } <span class="keyword">elseif</span> (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = <span class="string">'Invalid email format'</span>;
+    } <span class="keyword">elseif</span> (!preg_match(<span class="string">'/^[0-9]{10}$/'</span>, $phone)) {
+        $error = <span class="string">'Phone must be 10 digits'</span>;
+    } <span class="keyword">elseif</span> (strlen($password) < 8) {
+        $error = <span class="string">'Password must be 8+ characters'</span>;
+    } <span class="keyword">else</span> {
+        <span class="comment">// All validations passed, save to database</span>
+        registerUser($name, $email, $phone, $password);
+    }
+}
+            </div>
+
+            <h3>Validation Flow:</h3>
+            <div class="validation-flow">
+                <div class="flow-step">User submits form</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Server checks all fields</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Show error or save data</div>
+            </div>
+
+            <h3>Forms with Level Validation:</h3>
+            <table>
+                <tr>
+                    <th>Form</th>
+                    <th>File</th>
+                    <th>Checks</th>
+                </tr>
+                <tr>
+                    <td><strong>Sign Up</strong></td>
+                    <td>pages/auth/signup.php</td>
+                    <td>Email format, Phone (10 digits), Password strength, All fields filled</td>
+                </tr>
+                <tr>
+                    <td><strong>Login</strong></td>
+                    <td>pages/auth/login.php</td>
+                    <td>Email/phone not empty, Password not empty</td>
+                </tr>
+                <tr>
+                    <td><strong>Forgot Password</strong></td>
+                    <td>pages/auth/forgot-password.php</td>
+                    <td>Email format valid</td>
+                </tr>
+                <tr>
+                    <td><strong>Post Listing</strong></td>
+                    <td>pages/listings/post.php</td>
+                    <td>Title, Rent, City, Location all filled</td>
+                </tr>
+                <tr>
+                    <td><strong>Profile Setup</strong></td>
+                    <td>pages/profile/setup-step1.php</td>
+                    <td>Age (18-60), Gender, City, All required fields</td>
+                </tr>
+            </table>
+
+            <div class="file-location">
+                📁 <strong>Files:</strong> All PHP pages with POST forms (signup.php, login.php, listings/post.php, profile/setup-step1.php)
+            </div>
+        </div>
+
+        <!-- 3. Data Saving Validation -->
+        <div class="validation-type available">
+            <h2>Data Saving Validation</h2>
+            <span class="status-badge status-available">✓ AVAILABLE IN PROJECT</span>
+            
+            <div class="definition">
+                <strong>What is it?</strong> Final validation before saving to database. Checks if email/phone already exists, prevents duplicate accounts, and ensures data integrity.
+            </div>
+
+            <h3>Implementation in RoomSathi (signup.php):</h3>
+            <div class="code-block">
+<span class="comment">// Before saving, check if email/phone already exists</span>
+$checkSql = <span class="string">"SELECT id FROM users WHERE email = ? OR phone = ?"</span>;
+$stmt = mysqli_prepare($conn, $checkSql);
+mysqli_stmt_bind_param($stmt, <span class="string">"ss"</span>, $email, $phone);
+mysqli_stmt_execute($stmt);
+
+<span class="keyword">if</span> (mysqli_stmt_get_result($stmt)->num_rows > 0) {
+    $error = <span class="string">'Email or phone already registered'</span>;
+} <span class="keyword">else</span> {
+    <span class="comment">// Safe to save - email/phone unique</span>
+    $result = registerUser($name, $email, $phone, $password);
+    <span class="keyword">if</span> ($result[<span class="string">'success'</span>]) {
+        redirect(<span class="string">'/pages/auth/login.php?registered=1'</span>);
+    }
+}
+            </div>
+
+            <h3>Data Integrity Checks:</h3>
+            <div class="examples">
+                <div class="example-item">
+                    <h4>✓ No Duplicate Emails</h4>
+                    <p>Before inserting user → Check if email already exists in users table</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>✓ No Duplicate Phones</h4>
+                    <p>Before inserting user → Check if phone already exists</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>✓ Password Hashing</h4>
+                    <p>Before saving → Hash password using password_hash() (cannot be reversed)</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>✓ Foreign Key Constraints</h4>
+                    <p>Database enforces that listings must have valid user_id that exists in users table</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>✓ Timestamps Auto-set</h4>
+                    <p>created_at and updated_at are automatically set by database (cannot be manually changed)</p>
+                </div>
+            </div>
+
+            <div class="file-location">
+                📁 <strong>Files:</strong> includes/functions.php (registerUser function), signup.php, profile/edit.php
+            </div>
+        </div>
+
+        <!-- 4. Search Criteria Validation -->
+        <div class="validation-type available">
+            <h2>Search Criteria Validation</h2>
+            <span class="status-badge status-available">✓ AVAILABLE IN PROJECT</span>
+            
+            <div class="definition">
+                <strong>What is it?</strong> Validates search/filter parameters before querying database. Prevents SQL injection and ensures search makes sense (e.g., min rent ≤ max rent).
+            </div>
+
+            <h3>Implementation in RoomSathi (listings/browse.php):</h3>
+            <div class="code-block">
+<span class="comment">// Get and validate search parameters</span>
+$city = isset($_GET[<span class="string">'city'</span>]) ? trim($_GET[<span class="string">'city'</span>]) : <span class="string">''</span>;
+$minRent = isset($_GET[<span class="string">'min_rent'</span>]) ? (int)$_GET[<span class="string">'min_rent'</span>] : 0;
+$maxRent = isset($_GET[<span class="string">'max_rent'</span>]) ? (int)$_GET[<span class="string">'max_rent'</span>] : 999999;
+
+<span class="comment">// Validate: min rent should be less than max rent</span>
+<span class="keyword">if</span> ($minRent > $maxRent) {
+    $minRent = 0;
+    $maxRent = 999999;
+}
+
+<span class="comment">// Build safe search query using prepared statements</span>
+$sql = <span class="string">"SELECT * FROM listings WHERE city LIKE ? AND rent BETWEEN ? AND ?"</span>;
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, <span class="string">"sii"</span>, $searchCity, $minRent, $maxRent);
+            </div>
+
+            <h3>Search Validations in Project:</h3>
+            <table>
+                <tr>
+                    <th>Search Field</th>
+                    <th>Validation</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td><strong>City</strong></td>
+                    <td>Sanitize input, trim whitespace</td>
+                    <td>Prevent injection, ensure clean search</td>
+                </tr>
+                <tr>
+                    <td><strong>Min Rent</strong></td>
+                    <td>Convert to integer, min=0</td>
+                    <td>Ensure numeric value, prevent negative</td>
+                </tr>
+                <tr>
+                    <td><strong>Max Rent</strong></td>
+                    <td>Convert to integer, validate ≥ min</td>
+                    <td>Logical range (min should be ≤ max)</td>
+                </tr>
+                <tr>
+                    <td><strong>Room Type</strong></td>
+                    <td>Whitelist allowed values (private/shared)</td>
+                    <td>Only allow specific values</td>
+                </tr>
+                <tr>
+                    <td><strong>Gender Pref</strong></td>
+                    <td>Whitelist allowed values (male/female/any)</td>
+                    <td>Only allow specific values</td>
+                </tr>
+            </table>
+
+            <h3>Search Validation Flow:</h3>
+            <div class="validation-flow">
+                <div class="flow-step">User enters search params</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Validate & sanitize each param</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Check logical ranges</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Run safe query</div>
+            </div>
+
+            <div class="file-location">
+                📁 <strong>Files:</strong> pages/listings/browse.php, pages/matching/matches.php
+            </div>
+        </div>
+
+        <!-- 5. Range Validation -->
+        <div class="validation-type available">
+            <h2>Range Validation</h2>
+            <span class="status-badge status-available">✓ AVAILABLE IN PROJECT</span>
+            
+            <div class="definition">
+                <strong>What is it?</strong> Validates that numeric values fall within acceptable minimum and maximum limits (e.g., age 18-60, rent 1000+).
+            </div>
+
+            <h3>Examples in RoomSathi:</h3>
+            <div class="code-block">
+<span class="comment">// Age range validation</span>
+&lt;input type=<span class="string">"number"</span> name=<span class="string">"age"</span> min=<span class="string">"18"</span> max=<span class="string">"60"</span> required&gt;
+
+<span class="comment">// Rent range validation</span>
+&lt;input type=<span class="string">"number"</span> name=<span class="string">"rent"</span> min=<span class="string">"1000"</span> required&gt;
+
+<span class="comment">// Password length validation</span>
+&lt;input type=<span class="string">"password"</span> minlength=<span class="string">"8"</span> required&gt;
+
+<span class="comment">// Phone length validation</span>
+&lt;input type=<span class="string">"tel"</span> maxlength=<span class="string">"10"</span> required&gt;
+            </div>
+
+            <h3>Range Validations Implemented:</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Min</th>
+                    <th>Max</th>
+                    <th>Location</th>
+                </tr>
+                <tr>
+                    <td><strong>Age</strong></td>
+                    <td>18 years</td>
+                    <td>60 years</td>
+                    <td>profile/setup-step1.php</td>
+                </tr>
+                <tr>
+                    <td><strong>Rent</strong></td>
+                    <td>₹1,000</td>
+                    <td>Unlimited</td>
+                    <td>listings/post.php, listings/edit.php</td>
+                </tr>
+                <tr>
+                    <td><strong>Password Length</strong></td>
+                    <td>8 chars</td>
+                    <td>Unlimited</td>
+                    <td>signup.php, reset-password.php</td>
+                </tr>
+                <tr>
+                    <td><strong>Phone Length</strong></td>
+                    <td>10 digits</td>
+                    <td>10 digits</td>
+                    <td>signup.php, profile/edit.php</td>
+                </tr>
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td>1 char</td>
+                    <td>100 chars</td>
+                    <td>Database schema</td>
+                </tr>
+            </table>
+
+            <h3>Visual Demo - Range Validation:</h3>
+            <div class="visual-demo">
+                <h4 style="color: #050f91; margin-bottom: 15px;">Try entering values outside the range:</h4>
+                <form id="rangeValidationDemo">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Age (18-60)</label>
+                        <input type="number" min="18" max="60" placeholder="Enter age 18-60">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Rent (Min ₹1000)</label>
+                        <input type="number" min="1000" placeholder="Enter rent 1000+">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Phone (Exactly 10 digits)</label>
+                        <input type="tel" min="10" max="10" maxlength="10" placeholder="1000000000">
+                    </div>
+                </form>
+            </div>
+
+            <div class="file-location">
+                📁 <strong>Files:</strong> profile/setup-step1.php, listings/post.php, listings/edit.php
+            </div>
+        </div>
+
+        <!-- 6. Masked Input Validation -->
+        <div class="validation-type available">
+            <h2>Masked Input Validation</h2>
+            <span class="status-badge status-available">✓ AVAILABLE IN PROJECT</span>
+            
+            <div class="definition">
+                <strong>What is it?</strong> Restricts input format by showing placeholder pattern (mask) and only allowing specific characters. Example: Phone mask (XXX) XXX-XXXX only allows numbers.
+            </div>
+
+            <h3>Implementation in RoomSathi:</h3>
+            <div class="code-block">
+<span class="comment">/* Phone Mask - Only allows 10 digits */</span>
+&lt;input type=<span class="string">"tel"</span> name=<span class="string">"phone"</span> 
+       maxlength=<span class="string">"10"</span> 
+       pattern=<span class="string">"[0-9]{10}"</span>
+       placeholder=<span class="string">"9876543210"</span>
+       onkeypress=<span class="string">"return /[0-9]/.test(event.key)"</span>&gt;
+
+<span class="comment">/* Name Mask - Only allows letters and spaces */</span>
+&lt;input type=<span class="string">"text"</span> name=<span class="string">"name"</span> 
+       pattern=<span class="string">"^[A-Za-z\s]+$"</span>
+       onkeypress=<span class="string">"return /[a-zA-Z\s]/.test(event.key)"</span>
+       placeholder=<span class="string">"Enter your name"</span>&gt;
+
+<span class="comment">/* Number Mask - Only allows numeric input */</span>
+&lt;input type=<span class="string">"number"</span> name=<span class="string">"age"</span> 
+       min=<span class="string">"18"</span> max=<span class="string">"60"</span>
+       placeholder=<span class="string">"18-60"</span>&gt;
+            </div>
+
+            <h3>Mask Types in Project:</h3>
+            <div class="examples">
+                <div class="example-item">
+                    <h4>📱 Phone Mask (10 digits only)</h4>
+                    <p><strong>Pattern:</strong> [0-9]{10}</p>
+                    <p><strong>Input Filter:</strong> Only numbers allowed, blocks letters/special chars</p>
+                    <p><strong>Max Length:</strong> Cannot type more than 10 characters</p>
+                    <p><strong>Visual:</strong> Placeholder shows "9876543210"</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>👤 Name Mask (letters + spaces only)</h4>
+                    <p><strong>Pattern:</strong> ^[A-Za-z\s]+$</p>
+                    <p><strong>Input Filter:</strong> Blocks numbers and special characters</p>
+                    <p><strong>Prevents:</strong> Invalid names like "John123" or "John@Doe"</p>
+                    <p><strong>Helpful for:</strong> Data quality and consistency</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>🔐 Password Mask (strong requirements)</h4>
+                    <p><strong>Pattern:</strong> Uppercase + Lowercase + Number + Special char</p>
+                    <p><strong>Real-time Feedback:</strong> Shows password strength bar</p>
+                    <p><strong>Minimum:</strong> 8 characters required</p>
+                    <p><strong>Visual Indicator:</strong> Strength changes from Weak → Fair → Strong</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>💰 Rent Mask (numeric only, ≥ ₹1000)</h4>
+                    <p><strong>Type:</strong> number input</p>
+                    <p><strong>Input Filter:</strong> Only numbers allowed</p>
+                    <p><strong>Range:</strong> Minimum ₹1000</p>
+                    <p><strong>Prevents:</strong> Negative or extremely low rent values</p>
+                </div>
+
+                <div class="example-item">
+                    <h4>📧 Email Mask (standard email format)</h4>
+                    <p><strong>Type:</strong> email input</p>
+                    <p><strong>Auto-validation:</strong> Browser validates email format</p>
+                    <p><strong>Required:</strong> Must contain @ and valid domain</p>
+                    <p><strong>Visual:</strong> Shows error if format is wrong</p>
+                </div>
+            </div>
+
+            <h3>Masked Input Demo:</h3>
+            <div class="visual-demo">
+                <h4 style="color: #050f91; margin-bottom: 15px;">Try typing to see masks in action:</h4>
+                <form id="maskedInputDemo">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Phone (Only digits, max 10)</label>
+                        <input type="tel" maxlength="10" pattern="[0-9]{10}" placeholder="9876543210" onkeypress="return /[0-9]/.test(event.key)">
+                        <small style="color: #666;">Try typing letters - they'll be blocked</small>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Name (Letters & spaces only)</label>
+                        <input type="text" pattern="^[A-Za-z\s]+$" placeholder="Enter your name" onkeypress="return /[a-zA-Z\s]/.test(event.key)">
+                        <small style="color: #666;">Try typing numbers - they'll be blocked</small>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; color: #050f91; font-weight: 600;">Age (Numbers only, 18-60)</label>
+                        <input type="number" min="18" max="60" placeholder="Enter age">
+                        <small style="color: #666;">Values < 18 or > 60 will be rejected</small>
+                    </div>
+                </form>
+            </div>
+
+            <h3>How Masked Input Works:</h3>
+            <ol>
+                <li><span class="highlight">User types character</span> - JavaScript/HTML checks if it matches the mask</li>
+                <li><span class="highlight">Valid character?</span> - Character appears in field</li>
+                <li><span class="highlight">Invalid character?</span> - Character is blocked/ignored</li>
+                <li><span class="highlight">Length exceeded?</span> - maxlength attribute prevents typing more</li>
+                <li><span class="highlight">User submits form?</span> - Server-side validation double-checks pattern</li>
+            </ol>
+
+            <div class="file-location">
+                📁 <strong>Files:</strong> signup.php, profile/setup-step1.php, listings/post.php, pages/auth/ (all auth pages)
+            </div>
+        </div>
+
+        <!-- Summary Table -->
+        <div class="validation-type" style="border-top: 5px solid #4CAF50;">
+            <h2>📊 Validation Summary Table</h2>
+            
+            <table>
+                <tr>
+                    <th>Validation Type</th>
+                    <th>Where It Happens</th>
+                    <th>When It Runs</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td><strong>Field Level</strong></td>
+                    <td>Browser (HTML5) + JavaScript</td>
+                    <td>Real-time as user types</td>
+                    <td style="color: #4CAF50;">✓ Active</td>
+                </tr>
+                <tr>
+                    <td><strong>Form Level</strong></td>
+                    <td>Server (PHP)</td>
+                    <td>When form is submitted</td>
+                    <td style="color: #4CAF50;">✓ Active</td>
+                </tr>
+                <tr>
+                    <td><strong>Data Saving</strong></td>
+                    <td>Server (PHP) + Database</td>
+                    <td>Before INSERT/UPDATE queries</td>
+                    <td style="color: #4CAF50;">✓ Active</td>
+                </tr>
+                <tr>
+                    <td><strong>Search Criteria</strong></td>
+                    <td>Server (PHP)</td>
+                    <td>Before executing search query</td>
+                    <td style="color: #4CAF50;">✓ Active</td>
+                </tr>
+                <tr>
+                    <td><strong>Range</strong></td>
+                    <td>Browser (HTML5) + Server</td>
+                    <td>Both real-time and on submit</td>
+                    <td style="color: #4CAF50;">✓ Active</td>
+                </tr>
+                <tr>
+                    <td><strong>Masked Input</strong></td>
+                    <td>Browser (HTML5 + JavaScript)</td>
+                    <td>As user types</td>
+                    <td style="color: #4CAF50;">✓ Active</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="validation-type" style="background: #e3f2fd; border-top: 5px solid #2196F3;">
+            <h2>✅ Key Takeaways for Your Teacher</h2>
+            <ul style="font-size: 1.05rem; line-height: 2;">
+                <li><strong>✓ All 6 validation types are implemented</strong> in RoomSathi project</li>
+                <li><strong>✓ Two-layer validation:</strong> Client-side (browser) for UX + Server-side (PHP) for security</li>
+                <li><strong>✓ Never trust client-side alone:</strong> Server-side validation prevents hacking/injection</li>
+                <li><strong>✓ Prepared statements:</strong> Prevent SQL injection in all database queries</li>
+                <li><strong>✓ Real-time feedback:</strong> Users see errors immediately (field masks, password strength)</li>
+                <li><strong>✓ Data integrity:</strong> Database constraints prevent invalid data from being saved</li>
+                <li><strong>✓ User experience:</strong> Masked inputs guide users to enter correct format</li>
+                <li><strong>✓ Security focused:</strong> Password hashing, email verification, duplicate checks</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
